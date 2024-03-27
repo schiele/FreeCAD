@@ -44,7 +44,7 @@ FC_LOG_LEVEL_INIT("DlgAddPropertyVarSet", true, true)
 using namespace Gui;
 using namespace Gui::Dialog;
 
-const QString DlgAddPropertyVarSet::GROUP_BASE = QString::fromUtf8("Base");
+const std::string DlgAddPropertyVarSet::GROUP_BASE = "Base";
 
 DlgAddPropertyVarSet::DlgAddPropertyVarSet(QWidget* parent,
                                            ViewProviderVarSet* viewProvider)
@@ -75,13 +75,13 @@ void DlgAddPropertyVarSet::initializeGroup()
 
     std::vector<App::Property*> properties;
     varSet->getPropertyList(properties);
-    std::unordered_set<QString> groupNames;
+    std::unordered_set<std::string> groupNames;
     for (auto prop : properties) {
         const char* groupName = varSet->getPropertyGroup(prop);
-        groupNames.insert(groupName ? QString::fromUtf8(groupName) : GROUP_BASE);
+        groupNames.insert(groupName ? groupName : GROUP_BASE);
     }
-    std::vector<QString> groupNamesSorted(groupNames.begin(), groupNames.end());
-    std::sort(groupNamesSorted.begin(), groupNamesSorted.end(), [](QString& a, QString& b) {
+    std::vector<std::string> groupNamesSorted(groupNames.begin(), groupNames.end());
+    std::sort(groupNamesSorted.begin(), groupNamesSorted.end(), [](std::string& a, std::string& b) {
         // prefer anything else other than Base, so move it to the back
         if (a == GROUP_BASE) {
             return false;
@@ -95,10 +95,10 @@ void DlgAddPropertyVarSet::initializeGroup()
     });
 
     for (const auto& groupName : groupNamesSorted) {
-        comboBoxGroup.addItem(groupName);
+        comboBoxGroup.addItem(QString::fromStdString(groupName));
     }
 
-    comboBoxGroup.setEditText(groupNamesSorted[0]);
+    comboBoxGroup.setEditText(QString::fromStdString(groupNamesSorted[0]));
 }
 
 void DlgAddPropertyVarSet::initializeTypes()
@@ -211,7 +211,7 @@ static PropertyEditor::PropertyItem *createPropertyItem(App::Property *prop)
     return item;
 }
 
-void DlgAddPropertyVarSet::addEditor(PropertyEditor::PropertyItem* propertyItem, std::string& type)
+void DlgAddPropertyVarSet::addEditor(PropertyEditor::PropertyItem* propertyItem, std::string& /*type*/)
 {
     editor.reset(propertyItem->createEditor(this, this, SLOT(valueChanged())));
     editor->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);

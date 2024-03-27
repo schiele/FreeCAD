@@ -26,14 +26,15 @@
 #include <QApplication>
 #endif
 
-#include "App/Document.h"
+#include <App/GroupExtension.h>
+#include <App/Document.h>
 
 #include "Command.h"
 #include "ActiveObjectList.h"
 #include "Application.h"
 #include "Document.h"
 #include "ViewProviderDocumentObject.h"
-#include "MDIView.h"
+#include "Selection.h"
 
 using namespace Gui;
 
@@ -137,8 +138,7 @@ StdCmdVarSet::StdCmdVarSet()
     sGroup        = "Structure";
     sMenuText     = QT_TR_NOOP("Create a variable set");
     sToolTipText  = QT_TR_NOOP("A Variable Set is an object that maintains a set of properties to be used as "
-                               "variables.  Variable Sets inside a Part can be exposed such that these Parts "
-                               "can act as variants.");
+                               "variables.");
     sWhatsThis    = "Std_VarSet";
     sStatusTip    = sToolTipText;
     sPixmap       = "VarSet";
@@ -153,10 +153,20 @@ void StdCmdVarSet::activated(int iMsg)
     std::string VarSetName;
     VarSetName = getUniqueObjectName("VarSet");
     doCommand(Doc,"App.activeDocument().addObject('App::VarSet','%s')",VarSetName.c_str());
-    Gui::MDIView* view = Application::Instance->activeView();
-    if (view->hasActiveObject("part")) {
-        doCommand(Doc, "Gui.ActiveDocument.ActiveView.getActiveObject('part').addObject(App.ActiveDocument.getObject('%s'))", VarSetName.c_str());
+
+    // add the varset to a group if it is selected
+    auto sels = Selection().getSelectionEx(nullptr, App::DocumentObject::getClassTypeId(),
+                                           ResolveMode::OldStyleElement, true);
+    if (sels.size() == 1) {
+        App::DocumentObject *obj = sels[0].getObject();
+        auto group = obj->getExtension<App::GroupExtension>();
+        if (group) {
+            Gui::Document* docGui = Application::Instance->activeDocument();
+            App::Document* doc = docGui->getDocument();
+            group->addObject(doc->getObject(VarSetName.c_str()));
+        }
     }
+
     doCommand(Doc, "App.ActiveDocument.getObject('%s').ViewObject.doubleClicked()", VarSetName.c_str());
 }
 

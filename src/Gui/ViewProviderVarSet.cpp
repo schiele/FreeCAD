@@ -53,7 +53,7 @@ bool ViewProviderVarSet::doubleClicked()
     return true;
 }
 
-void ViewProviderVarSet::onFinished(int result)
+void ViewProviderVarSet::onFinished(int /*result*/)
 {
     dialog = nullptr;
 }

@@ -61,7 +61,7 @@ class GuiExport DlgAddPropertyVarSet : public QDialog
     Q_OBJECT
 
 public:
-    static const QString GROUP_BASE;
+    static const std::string GROUP_BASE;
 
 public:
     DlgAddPropertyVarSet(QWidget *parent, ViewProviderVarSet* viewProvider);
