@@ -147,7 +147,8 @@ Base::Type DlgExpressionInput::getTypePath()
     return path.getProperty()->getTypeId();
 }
 
-Base::Type DlgExpressionInput::determineTypeVarSet() {
+Base::Type DlgExpressionInput::determineTypeVarSet()
+{
     Base::Type typePath = getTypePath();
 
     // The type of the path is leading.  If it is one of the types below, we
@@ -158,12 +159,11 @@ Base::Type DlgExpressionInput::determineTypeVarSet() {
         return typePath;
     }
 
-    // If we cannot determine the type by means of the path, for example
-    // when dealing with a sketcher constraint list or with the x, y, or z
-    // of a Placement, the type of the unit allows us to create a property
-    // in the varset.  All unit properties are derived from
-    // App::PropertyFloat, enabling us to create a property and set the
-    // value.
+    // If we cannot determine the type by means of the path, for example when
+    // dealing with a sketcher constraint list or with the x, y, or z of a
+    // Placement, the type of the unit allows us to create a property in the
+    // varset.  Since unit properties are derived from App::PropertyFloat, it
+    // allows us to create a property and set the value.
 
     std::string unitTypeString = impliedUnit.getTypeString().toStdString();
     if (unitTypeString.empty()) {
@@ -197,7 +197,7 @@ void DlgExpressionInput::initializeVarSets()
             this, &DlgExpressionInput::namePropChanged);
 
     std::vector<App::VarSet*> varSets = getAllVarSets();
-    if (varSets.size() > 0 && typeOkForVarSet()) {
+    if (!varSets.empty() && typeOkForVarSet()) {
         ui->checkBoxVarSets->setVisible(true);
         ui->checkBoxVarSets->setCheckState(varSetsVisible ? Qt::Checked : Qt::Unchecked);
         ui->groupBoxVarSets->setVisible(varSetsVisible);
@@ -395,13 +395,15 @@ void DlgExpressionInput::show()
     ui->expression->selectAll();
 }
 
-class Binding : public Gui::ExpressionBinding {
+class Binding : public Gui::ExpressionBinding
+{
     // helper class to compensate for the fact that
     // ExpressionBinding::setExpression is protected.
 public:
     Binding() = default;
 
-    void setExpression(std::shared_ptr<App::Expression> expr) override {
+    void setExpression(std::shared_ptr<App::Expression> expr) override
+    {
         ExpressionBinding::setExpression(expr);
     }
 };
@@ -524,7 +526,7 @@ static void addGroupsVarSetComboBox(App::VarSet* varSet, QTreeWidgetItem* varSet
             namesGroup.insert(nameGroup);
         }
     }
-    for (auto nameGroup : namesGroup) {
+    for (const auto& nameGroup : namesGroup) {
         // the item will be automatically destroyed when the varSetItem will be destroyed
         auto item = new QTreeWidgetItem(varSetItem);
         item->setText(0, QString::fromStdString(nameGroup));
