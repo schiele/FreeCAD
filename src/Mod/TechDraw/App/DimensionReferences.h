@@ -33,6 +33,7 @@
 #include <TopoDS_Vertex.hxx>
 
 #include <Mod/Part/App/TopoShape.h>
+#include <Mod/TechDraw/App/Geometry.h>
 
 namespace App
 {
@@ -47,7 +48,6 @@ class TopoShape;
 
 namespace TechDraw
 {
-
 //a convenient way of handling object+subName references
 class TechDrawExport ReferenceEntry
 {
@@ -58,6 +58,7 @@ public:
     ~ReferenceEntry() = default;
 
     ReferenceEntry& operator= (const ReferenceEntry& otherRef);
+    bool operator== (const ReferenceEntry& otherRef) const;
 
     App::DocumentObject* getObject() const;
     void setObject(App::DocumentObject* docObj) { m_object = docObj; }
@@ -70,6 +71,8 @@ public:
 
     TopoDS_Shape getGeometry() const;
     std::string geomType() const;
+    GeomType geomEdgeType() const;
+
     bool isWholeObject() const;
 
     Part::TopoShape asTopoShape() const;
