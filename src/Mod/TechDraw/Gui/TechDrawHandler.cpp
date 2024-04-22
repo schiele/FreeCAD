@@ -26,6 +26,8 @@
 
 #include <QGuiApplication>
 #include <QPainter>
+#include <QKeyEvent>
+#include <QMouseEvent>
 
 #include <Inventor/events/SoKeyboardEvent.h>
 #endif  // #ifndef _PreComp_
