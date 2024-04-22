@@ -83,6 +83,7 @@ public:
 private:
     Part::TopoShape asTopoShapeVertex(TopoDS_Vertex &vert) const;
     Part::TopoShape asTopoShapeEdge(TopoDS_Edge& edge) const;
+    Part::TopoShape asTopoShapeFace(TopoDS_Face& edge) const;
 
     App::DocumentObject* m_object{nullptr};
     std::string m_subName{""};

@@ -475,6 +475,28 @@ Base::Vector3d Measurement::delta() const
     return result;
 }
 
+double Measurement::area() const
+{
+    double result = 0.0;
+    if (References3D.getSize() == 0) {
+        Base::Console().Error("Measurement::area - No 3D references available\n");
+    }
+    else if (measureType == MeasureType::Surfaces) {
+
+        const std::vector<App::DocumentObject*>& objects = References3D.getValues();
+        const std::vector<std::string>& subElements = References3D.getSubValues();
+
+        for (size_t i = 0; i < objects.size(); ++i) {
+            GProp_GProps props;
+            BRepGProp::SurfaceProperties(getShape(objects[i], subElements[i].c_str()), props);
+            result += props.Mass();  // Area is obtained using Mass method for surface properties
+        }
+    }
+    else {
+        Base::Console().Error("Measurement::area - measureType is not valid\n");
+    }
+    return result;
+}
 
 Base::Vector3d Measurement::massCenter() const
 {

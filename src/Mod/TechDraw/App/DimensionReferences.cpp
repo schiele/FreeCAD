@@ -194,6 +194,10 @@ Part::TopoShape ReferenceEntry::asTopoShape() const
         TopoDS_Edge edge = TopoDS::Edge(geom);
         return asTopoShapeEdge(edge);
     }
+    if (geom.ShapeType() == TopAbs_FACE) {
+        TopoDS_Face face = TopoDS::Face(geom);
+        return asTopoShapeFace(face);
+    }
     throw Base::RuntimeError("Dimension Reference has unsupported geometry");
 }
 
@@ -219,6 +223,19 @@ Part::TopoShape ReferenceEntry::asTopoShapeEdge(TopoDS_Edge &edge) const
         unscaledEdge = TopoDS::Edge(unscaledShape);
     }
     return { unscaledEdge };
+}
+
+Part::TopoShape ReferenceEntry::asTopoShapeFace(TopoDS_Face &face) const
+{
+//    Base::Console().Message("RE::asTopoShapeFace()\n");
+    TopoDS_Face unscaledFace = face;
+    if (!is3d()) {
+        // 2d reference - projected and scaled. scale might have changed, so we need to unscale
+        auto dvp = static_cast<TechDraw::DrawViewPart*>(getObject());
+        TopoDS_Shape unscaledShape = ShapeUtils::scaleShape(face, 1.0 / dvp->getScale());
+        unscaledFace = TopoDS::Face(unscaledShape);
+    }
+    return { unscaledFace };
 }
 
 std::string ReferenceEntry::geomType() const
@@ -286,13 +303,19 @@ bool ReferenceEntry::hasGeometry() const
             if (vert) {
                 return true;
             }
-        } else if (gType == "Edge") {
+        }
+        else if (gType == "Edge") {
             auto edge = dvp->getGeomByIndex(geomNumber);
             if (edge) {
                 return true;
             }
         }
-        // if we ever have dimensions for faces, add something here.
+        else if (gType == "Face") {
+            auto face = dvp->getFace(getSubName());
+            if (face) {
+                return true;
+            }
+        }
         return false;
     }
 

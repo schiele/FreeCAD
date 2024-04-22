@@ -50,6 +50,7 @@ public:
     bool compareGeometry(Part::TopoShape geom1, Part::TopoShape geom2);
     bool comparePoints(TopoDS_Shape& shape1, TopoDS_Shape& shape2);
     bool compareEdges(TopoDS_Shape& shape1, TopoDS_Shape& shape2);
+    bool compareFaces(TopoDS_Shape& shape1, TopoDS_Shape& shape2);
 
     bool compareLines(TopoDS_Edge& edge1, TopoDS_Edge& edge2);
     bool compareCircles(TopoDS_Edge& edge1, TopoDS_Edge& edge2);

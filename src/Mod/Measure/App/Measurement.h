@@ -84,6 +84,9 @@ public:
   // Calculate volumetric/mass properties
   Base::Vector3d massCenter() const;
 
+  // Calculate the area of selection
+  double area() const;
+
   static Base::Vector3d toVector3d(const gp_Pnt gp) { return Base::Vector3d(gp.X(), gp.Y(), gp.Z()); }
 
 protected:
