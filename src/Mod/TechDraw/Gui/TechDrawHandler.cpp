@@ -28,6 +28,7 @@
 #include <QPainter>
 #include <QKeyEvent>
 #include <QMouseEvent>
+#include <QTimer>
 
 #include <Inventor/events/SoKeyboardEvent.h>
 #endif  // #ifndef _PreComp_

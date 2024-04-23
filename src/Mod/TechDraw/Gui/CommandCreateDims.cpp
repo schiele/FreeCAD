@@ -489,7 +489,7 @@ public:
         }
     }
 
-    void onSelectionChanged(const Gui::SelectionChanges& msg)
+    void onSelectionChanged(const Gui::SelectionChanges& msg) override
     {
         //Base::Console().Warning("onSelectionChanged %d - --%s--\n", (int)msg.Type, msg.pSubName);
 
