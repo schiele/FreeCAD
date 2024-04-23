@@ -406,85 +406,87 @@ public:
         }
     }
 
-    bool mousePressEvent(QMouseEvent* event) override
-    {
-        if (event->button() == Qt::RightButton && !dims.empty()) {
-            Gui::Selection().clearSelection();
-            clearAndRestartCommand();
-            event->accept();
-            return true;
-        }
-        return TechDrawHandler::mousePressEvent(event);
-    }
-
-    bool mouseReleaseEvent(QMouseEvent* event) override
+    void mouseReleaseEvent(QMouseEvent* event) override
     {
         // Base::Console().Warning("mouseReleaseEvent TH\n");
-        mousePos = event->pos();
-
-        bool finalize = true;
-
-        if (removedRef.hasGeometry()) {
-            finalize = false;
-            //Base::Console().Warning("RmvSelection \n");
-            // Remove the reference from the vector
-            ReferenceVector& selVector = getSelectionVector(removedRef);
-            selVector.erase(std::remove(selVector.begin(), selVector.end(), removedRef), selVector.end());
-
-            if (!selectionEmpty()) {
-                availableDimension = AvailableDimension::FIRST;
-                makeAppropriateDimension();
-            }
-            else {
+        if (event->button() == Qt::RightButton) {
+            if (!dims.empty()) {
+                Gui::Selection().clearSelection();
                 clearAndRestartCommand();
-            }
-            removedRef = ReferenceEntry();
-        }
-
-        if (addedRef.hasGeometry()) {
-            finalize = false;
-            //Base::Console().Warning("AddSelection\n");
-            //add the geometry to its type vector. Temporarily if not selAllowed
-            if (addedRef.getSubName() == "") {
-                // Behavior deactivated for now because I found it annoying.
-                // To reactivate replace addedRef.hasGeometry() by addedRef.getObject() above.
-                // This means user selected the view itself.
-                if (selectionEmpty()) {
-                    restartCommand(QT_TRANSLATE_NOOP("Command", "Add Extent dimension"));
-                    createExtentDistanceDimension("DistanceX");
-                }
+                event->accept();
             }
             else {
-                ReferenceVector& selVector = getSelectionVector(addedRef);
-                selVector.push_back(addedRef);
+                TechDrawHandler::mouseReleaseEvent(event);
+            }
+            return;
+        }
+        else  if (event->button() == Qt::LeftButton) {
+            mousePos = event->pos();
 
-                availableDimension = AvailableDimension::FIRST;
-                bool selAllowed = makeAppropriateDimension();
+            bool finalize = true;
 
-                if (!selAllowed) {
-                    // remove from selection
-                    blockRemoveSel = true;
+            if (removedRef.hasGeometry()) {
+                finalize = false;
+                //Base::Console().Warning("RmvSelection \n");
+                // Remove the reference from the vector
+                ReferenceVector& selVector = getSelectionVector(removedRef);
+                selVector.erase(std::remove(selVector.begin(), selVector.end(), removedRef), selVector.end());
 
-                    Gui::Selection().rmvSelection(addedRef.getObject()->getDocument()->getName(), addedRef.getObject()->getNameInDocument(), addedRef.getSubName().c_str());
-                    blockRemoveSel = false;
+                if (!selectionEmpty()) {
+                    availableDimension = AvailableDimension::FIRST;
+                    makeAppropriateDimension();
+                }
+                else {
+                    clearAndRestartCommand();
+                }
+                removedRef = ReferenceEntry();
+            }
 
-                    if (selVector == selFaces) {
-                        // if sel face and not allowed, then a dimension is being created
-                        // and user clicked on a face to drop it.
-                        // Better would be to disable face selectability when needed.
-                        finalize = true;
+            if (addedRef.hasGeometry()) {
+                finalize = false;
+                //Base::Console().Warning("AddSelection\n");
+                //add the geometry to its type vector. Temporarily if not selAllowed
+                if (addedRef.getSubName() == "") {
+                    // Behavior deactivated for now because I found it annoying.
+                    // To reactivate replace addedRef.hasGeometry() by addedRef.getObject() above.
+                    // This means user selected the view itself.
+                    if (selectionEmpty()) {
+                        restartCommand(QT_TRANSLATE_NOOP("Command", "Add Extent dimension"));
+                        createExtentDistanceDimension("DistanceX");
                     }
                 }
+                else {
+                    ReferenceVector& selVector = getSelectionVector(addedRef);
+                    selVector.push_back(addedRef);
+
+                    availableDimension = AvailableDimension::FIRST;
+                    bool selAllowed = makeAppropriateDimension();
+
+                    if (!selAllowed) {
+                        // remove from selection
+                        blockRemoveSel = true;
+
+                        Gui::Selection().rmvSelection(addedRef.getObject()->getDocument()->getName(),
+                            addedRef.getObject()->getNameInDocument(), addedRef.getSubName().c_str());
+                        blockRemoveSel = false;
+
+                        if (selVector == selFaces) {
+                            // if sel face and not allowed, then a dimension is being created
+                            // and user clicked on a face to drop it.
+                            // Better would be to disable face selectability when needed.
+                            finalize = true;
+                        }
+                    }
+                }
+                addedRef = ReferenceEntry();
             }
-            addedRef = ReferenceEntry();
-        }
 
 
-        // Finalize if click on empty space.
-        if (finalize && !dims.empty()) {
-            finalizeCommand();
+            // Finalize if click on empty space.
+            if (finalize && !dims.empty()) {
+                finalizeCommand();
+            }
         }
-        return true;
     }
 
     void onSelectionChanged(const Gui::SelectionChanges& msg)

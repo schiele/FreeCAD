@@ -110,6 +110,7 @@ MDIViewPage::MDIViewPage(ViewProviderPage* pageVp, Gui::Document* doc, QWidget* 
     connect(m_printAllAction, &QAction::triggered, this, qOverload<>(&MDIViewPage::printAllPages));
 
     isSelectionBlocked = false;
+    isContextualMenuEnabled = true;
 
     QString tabText = QString::fromUtf8(pageVp->getDrawPage()->getNameInDocument());
     tabText += QString::fromUtf8("[*]");
@@ -461,14 +462,16 @@ PyObject* MDIViewPage::getPyObject()
 void MDIViewPage::contextMenuEvent(QContextMenuEvent* event)
 {
     //    Base::Console().Message("MDIVP::contextMenuEvent() - reason: %d\n", event->reason());
-    QMenu menu;
-    menu.addAction(m_toggleFrameAction);
-    menu.addAction(m_toggleKeepUpdatedAction);
-    menu.addAction(m_exportSVGAction);
-    menu.addAction(m_exportDXFAction);
-    menu.addAction(m_exportPDFAction);
-    menu.addAction(m_printAllAction);
-    menu.exec(event->globalPos());
+    if (isContextualMenuEnabled) {
+        QMenu menu;
+        menu.addAction(m_toggleFrameAction);
+        menu.addAction(m_toggleKeepUpdatedAction);
+        menu.addAction(m_exportSVGAction);
+        menu.addAction(m_exportDXFAction);
+        menu.addAction(m_exportPDFAction);
+        menu.addAction(m_printAllAction);
+        menu.exec(event->globalPos());
+    }
 }
 
 void MDIViewPage::toggleFrame() { m_vpPage->toggleFrameState(); }
@@ -1074,6 +1077,7 @@ void MDIViewPage::setDimensionsSelectability(bool val)
         }
     }
 }
+
 
 // ----------------------------------------------------------------------------
 
