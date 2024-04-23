@@ -93,8 +93,7 @@ QGIDatumLabel::QGIDatumLabel() : m_dragState(NoDrag)
     setCacheMode(QGraphicsItem::NoCache);
     setFlag(ItemSendsGeometryChanges, true);
     setFlag(ItemIsMovable, true);
-    setFlag(ItemIsSelectable, true);
-    setAcceptHoverEvents(true);
+    setSelectability(true);
     setFiltersChildEvents(true);
 
     m_dimText = new QGCustomText();
@@ -443,6 +442,13 @@ void QGIDatumLabel::setColor(QColor color)
     m_tolTextOver->setColor(m_colNormal);
     m_tolTextUnder->setColor(m_colNormal);
     m_unitText->setColor(m_colNormal);
+}
+
+void QGIDatumLabel::setSelectability(bool val)
+{
+    setFlag(ItemIsSelectable, val);
+    setAcceptHoverEvents(val);
+    setAcceptedMouseButtons(val ? Qt::AllButtons : Qt::NoButton);
 }
 
 //**************************************************************

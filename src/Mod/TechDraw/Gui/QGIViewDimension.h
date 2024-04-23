@@ -87,6 +87,7 @@ public:
     void setPrettyPre();
     void setPrettyNormal();
     void setColor(QColor color);
+    void setSelectability(bool val);
 
     QGCustomText* getDimText() { return m_dimText; }
     void setDimText(QGCustomText* newText) { m_dimText = newText; }

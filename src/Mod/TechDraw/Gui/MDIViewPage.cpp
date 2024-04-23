@@ -1065,6 +1065,16 @@ void MDIViewPage::showStatusMsg(const char* string1, const char* string2, const 
     }
 }
 
+void MDIViewPage::setDimensionsSelectability(bool val)
+{
+    for (auto scene : m_scene->items()) {
+        auto* dl = dynamic_cast<QGIDatumLabel*>(scene);
+        if (dl) {
+            dl->setSelectability(val);
+        }
+    }
+}
+
 // ----------------------------------------------------------------------------
 
 void MDIViewPagePy::init_type()

@@ -109,6 +109,8 @@ public:
     void setScene(QGSPage* scene, QGVPage* view);
     void fixSceneDependencies();
 
+    void setDimensionsSelectability(bool val);
+
 public Q_SLOTS:
     void viewAll() override;
     void saveSVG();

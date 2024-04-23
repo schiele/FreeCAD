@@ -219,6 +219,10 @@ public:
 
     void activated() override
     {
+        auto* mdi = dynamic_cast<MDIViewPage*>(Gui::getMainWindow()->activeWindow());
+        if (mdi) {
+            mdi->setDimensionsSelectability(false);
+        }
         Gui::Selection().setSelectionStyle(Gui::SelectionSingleton::SelectionStyle::GreedySelection);
         Gui::Command::openCommand(QT_TRANSLATE_NOOP("Command", "Insert Dimension"));
         handleInitialSelection();
@@ -226,6 +230,10 @@ public:
 
     void deactivated() override
     {
+        auto* mdi = dynamic_cast<MDIViewPage*>(Gui::getMainWindow()->activeWindow());
+        if (mdi) {
+            mdi->setDimensionsSelectability(true);
+        }
         Gui::Selection().setSelectionStyle(Gui::SelectionSingleton::SelectionStyle::NormalSelection);
         Gui::Command::abortCommand();
     }
@@ -381,6 +389,20 @@ public:
                 dim->getNameInDocument(), x);
             Gui::Command::doCommand(Gui::Command::Doc, "App.ActiveDocument.%s.Y = %f",
                 dim->getNameInDocument(), -y);
+        }
+    }
+
+    void setDimsSelectability(bool val)
+    {
+        for (auto dim : dims) {
+            setDimSelectability(dim, val);
+        }
+    }
+    void setDimSelectability(DrawViewDimension* d, bool val)
+    {
+        QGIDatumLabel* label = getDimLabel(d);
+        if (label) {
+            label->setSelectability(val);
         }
     }
 
@@ -743,6 +765,12 @@ protected:
             if (selection.has1Spline()) { makeCts_1Spline(selAllowed); }
             if (selection.has1SplineAndMore()) { makeCts_1SplineAndMore(selAllowed); }
         }
+
+        // Make created constraints unselectable.
+        if (selAllowed) {
+            setDimsSelectability(false);
+        }
+
         return selAllowed;
     }
 
@@ -1131,6 +1159,7 @@ protected:
         else {
             createDistanceDimension(newType, { selPoints[0], selPoints[1] });
         }
+        setDimsSelectability(false);
     }
 
     void updateExtentDistanceType()
@@ -1163,6 +1192,11 @@ protected:
             restartCommand(QT_TRANSLATE_NOOP("Command", "Add DistanceY extent dimension"));
             createExtentDistanceDimension("DistanceY");
         }
+        else {
+            return;
+        }
+
+        setDimsSelectability(false);
     }
 
     void updateChainDistanceType()
@@ -1222,6 +1256,11 @@ protected:
                 createCoordDimension("Distance");
             }
         }
+        else {
+            return;
+        }
+
+        setDimsSelectability(false);
     }
 
     void createChainDimension(std::string type)
