@@ -30,6 +30,7 @@
 #include <QMessageBox>
 #include <QKeyEvent>
 #include <QMouseEvent>
+#include <QPoint>
 #endif//#ifndef _PreComp_
 
 #include <App/Document.h>
@@ -178,7 +179,7 @@ public:
         : SelectionObserver(true)
         , specialDimension(SpecialDimension::None)
         , availableDimension(AvailableDimension::FIRST)
-        , previousPos(QPoint(0, 0))
+        , mousePos(QPoint(0, 0))
         , selPoints({})
         , selLine({})
         , selCircleArc({})
@@ -247,7 +248,7 @@ public:
             else if (availableDimension == AvailableDimension::FIFTH || availableDimension == AvailableDimension::RESET) {
                 availableDimension = AvailableDimension::FIRST;
             }
-            makeAppropriateDimension(previousPos);
+            makeAppropriateDimension();
             event->accept();
         }
         else if (event->key() == Qt::Key_Z && (QApplication::keyboardModifiers() & Qt::ControlModifier)) {
@@ -270,7 +271,7 @@ public:
 
     void mouseMoveEvent(QMouseEvent* event) override
     {
-        previousPos = event->pos();
+        mousePos = event->pos();
 
         if (dims.empty()){
             return;
@@ -280,13 +281,13 @@ public:
         Base::Vector3d dirMaster, delta;
         //Change distance dimension based on position of mouse.
         if (specialDimension == SpecialDimension::LineOr2PointsDistance){
-            updateDistanceType(event->pos());
+            updateDistanceType();
         }
         else if (specialDimension == SpecialDimension::ExtendDistance){
-            updateExtentDistanceType(event->pos());
+            updateExtentDistanceType();
         }
         else if (specialDimension == SpecialDimension::ChainDistance || specialDimension == SpecialDimension::CoordDistance){
-            updateChainDistanceType(event->pos());
+            updateChainDistanceType();
             textToMiddle = true;
             pointPair pp = dims[0]->getLinearPoints();
             dirMaster = pp.second() - pp.first();
@@ -301,7 +302,7 @@ public:
         int i = 0;
         for (auto* dim : dims) {
             auto dimType = static_cast<DimensionType>(dim->Type.getValue());
-            moveDimension(event->pos(), dim, textToMiddle, dirMaster, delta, dimType, i);
+            moveDimension(mousePos, dim, textToMiddle, dirMaster, delta, dimType, i);
 
             if (specialDimension == SpecialDimension::CoordDistance) {
                 i++;
@@ -321,7 +322,7 @@ public:
         }
         return qgivDimension->getDatumLabel();
     }
-    void moveDimension(QPoint& pos, DrawViewDimension* dim, bool textToMiddle = false, Base::Vector3d dir = Base::Vector3d(),
+    void moveDimension(QPoint pos, DrawViewDimension* dim, bool textToMiddle = false, Base::Vector3d dir = Base::Vector3d(),
         Base::Vector3d delta = Base::Vector3d(), DimensionType type = DimensionType::Distance, int i = 0)
     {
         if (!dim) { return; }
@@ -330,7 +331,7 @@ public:
 
         label->setPos(getDimPositionToBe(pos, label->pos(), textToMiddle, dir, delta, type, i));
     }
-    QPointF getDimPositionToBe(QPoint& pos, QPointF curPos = QPointF(), bool textToMiddle = false, Base::Vector3d dir = Base::Vector3d(),
+    QPointF getDimPositionToBe(QPoint pos, QPointF curPos = QPointF(), bool textToMiddle = false, Base::Vector3d dir = Base::Vector3d(),
         Base::Vector3d delta = Base::Vector3d(), DimensionType type = DimensionType::Distance, int i = 0)
     {
         auto* vpp = dynamic_cast<ViewProviderDrawingView*>(Gui::Application::Instance->getViewProvider(partFeat));
@@ -397,6 +398,8 @@ public:
     bool mouseReleaseEvent(QMouseEvent* event) override
     {
         // Base::Console().Warning("mouseReleaseEvent TH\n");
+        mousePos = event->pos();
+
         bool finalize = true;
 
         if (removedRef.hasGeometry()) {
@@ -408,7 +411,7 @@ public:
 
             if (!selectionEmpty()) {
                 availableDimension = AvailableDimension::FIRST;
-                makeAppropriateDimension(event->pos());
+                makeAppropriateDimension();
             }
             else {
                 clearAndRestartCommand();
@@ -426,7 +429,7 @@ public:
                 // This means user selected the view itself.
                 if (selectionEmpty()) {
                     restartCommand(QT_TRANSLATE_NOOP("Command", "Add Extent dimension"));
-                    createExtentDistanceDimension("DistanceX", event->pos());
+                    createExtentDistanceDimension("DistanceX");
                 }
             }
             else {
@@ -434,7 +437,7 @@ public:
                 selVector.push_back(addedRef);
 
                 availableDimension = AvailableDimension::FIRST;
-                bool selAllowed = makeAppropriateDimension(event->pos());
+                bool selAllowed = makeAppropriateDimension();
 
                 if (!selAllowed) {
                     // remove from selection
@@ -539,7 +542,7 @@ protected:
     SpecialDimension specialDimension;
     AvailableDimension availableDimension;
 
-    QPoint previousPos;
+    QPoint mousePos;
 
     ReferenceVector selPoints;
     ReferenceVector selLine;
@@ -578,7 +581,7 @@ protected:
         }
 
         // See if the selection is valid
-        bool selAllowed = makeAppropriateDimension(QPoint());
+        bool selAllowed = makeAppropriateDimension();
 
         if (!selAllowed) {
             clearRefVectors();
@@ -704,316 +707,316 @@ protected:
         return result;
     }
 
-    bool makeAppropriateDimension(QPoint& pos) {
+    bool makeAppropriateDimension() {
         bool selAllowed = false;
         //Base::Console().Warning("makeAppropriateDimension %d %d %d %d %d %d\n", selPoints.size(), selLine.size(), selCircleArc.size(), selEllipseArc.size(), selSplineAndCo.size(), selFaces.size());
 
         GeomSelectionSizes selection(selPoints.size(), selLine.size(), selCircleArc.size(), selEllipseArc.size(), selSplineAndCo.size(), selFaces.size());
         if (selection.hasFaces()) {
-            if (selection.has1Face()) { makeCts_Faces(selAllowed, pos); }
+            if (selection.has1Face()) { makeCts_Faces(selAllowed); }
             else { return false; }  // nothing else with face works
         }
         else if (selection.hasPoints()) {
             if (selection.has1Point()) { selAllowed = true; }
-            else if (selection.has2Points()) { makeCts_2Point(selAllowed, pos); }
-            else if (selection.has3Points()) { makeCts_3Point(selAllowed, pos); }
-            else if (selection.has4MorePoints()) { makeCts_4MorePoints(selAllowed, pos); }
-            else if (selection.has1Point1Line()) { makeCts_1Point1Line(selAllowed, pos); }
-            else if (selection.has1Point1Circle()) { makeCts_1Point1Circle(selAllowed, pos); }
-            else if (selection.has1Point1Ellipse()) { makeCts_1Point1Ellipse(selAllowed, pos); }
+            else if (selection.has2Points()) { makeCts_2Point(selAllowed); }
+            else if (selection.has3Points()) { makeCts_3Point(selAllowed); }
+            else if (selection.has4MorePoints()) { makeCts_4MorePoints(selAllowed); }
+            else if (selection.has1Point1Line()) { makeCts_1Point1Line(selAllowed); }
+            else if (selection.has1Point1Circle()) { makeCts_1Point1Circle(selAllowed); }
+            else if (selection.has1Point1Ellipse()) { makeCts_1Point1Ellipse(selAllowed); }
         }
         else if (selection.hasLines()) {
-            if (selection.has1Line()) { makeCts_1Line(selAllowed, pos); }
-            else if (selection.has2Lines()) { makeCts_2Line(selAllowed, pos); }
-            else if (selection.has1Line1Circle()) { makeCts_1Line1Circle(selAllowed, pos); }
-            else if (selection.has1Line1Ellipse()) { makeCts_1Line1Ellipse(selAllowed, pos); }
+            if (selection.has1Line()) { makeCts_1Line(selAllowed); }
+            else if (selection.has2Lines()) { makeCts_2Line(selAllowed); }
+            else if (selection.has1Line1Circle()) { makeCts_1Line1Circle(selAllowed); }
+            else if (selection.has1Line1Ellipse()) { makeCts_1Line1Ellipse(selAllowed); }
         }
         else if (selection.hasCirclesOrArcs()) {
-            if (selection.has1Circle()) { makeCts_1Circle(selAllowed, pos); }
-            else if (selection.has2Circles()) { makeCts_2Circle(selAllowed, pos); }
+            if (selection.has1Circle()) { makeCts_1Circle(selAllowed); }
+            else if (selection.has2Circles()) { makeCts_2Circle(selAllowed); }
         }
         else if (selection.hasEllipseAndCo()) {
-            if (selection.has1Ellipse()) { makeCts_1Ellipse(selAllowed, pos); }
-            if (selection.has2Ellipses()) { makeCts_2Ellipses(selAllowed, pos); }
+            if (selection.has1Ellipse()) { makeCts_1Ellipse(selAllowed); }
+            if (selection.has2Ellipses()) { makeCts_2Ellipses(selAllowed); }
         }
         else if (selection.hasSplineAndCo()) {
-            if (selection.has1Spline()) { makeCts_1Spline(selAllowed, pos); }
-            if (selection.has1SplineAndMore()) { makeCts_1SplineAndMore(selAllowed, pos); }
+            if (selection.has1Spline()) { makeCts_1Spline(selAllowed); }
+            if (selection.has1SplineAndMore()) { makeCts_1SplineAndMore(selAllowed); }
         }
         return selAllowed;
     }
 
-    void makeCts_Faces(bool& selAllowed, QPoint& pos)
+    void makeCts_Faces(bool& selAllowed)
     {
         //area
         if (availableDimension == AvailableDimension::FIRST) {
             restartCommand(QT_TRANSLATE_NOOP("Command", "Add Area dimension"));
-            createAreaDimension(selFaces[0], pos);
+            createAreaDimension(selFaces[0]);
             selAllowed = true;
             availableDimension = AvailableDimension::RESET;
         }
     }
 
-    void makeCts_2Point(bool& selAllowed, QPoint& pos)
+    void makeCts_2Point(bool& selAllowed)
     {
         //distance
         if (availableDimension == AvailableDimension::FIRST) {
             restartCommand(QT_TRANSLATE_NOOP("Command", "Add Distance dimension"));
-            createDistanceDimension("Distance", selPoints[0], selPoints[1], pos);
+            createDistanceDimension("Distance", { selPoints[0], selPoints[1] });
             specialDimension = SpecialDimension::LineOr2PointsDistance;
             selAllowed = true;
             availableDimension = AvailableDimension::RESET;
         }
     }
 
-    void makeCts_3Point(bool& selAllowed, QPoint& pos)
+    void makeCts_3Point(bool& selAllowed)
     {
         // chain distances, angle
         if (availableDimension == AvailableDimension::FIRST) {
             restartCommand(QT_TRANSLATE_NOOP("Command", "Add horizontal chain dimensions"));
-            createChainDimension("DistanceX", pos);
+            createChainDimension("DistanceX");
             selAllowed = true;
         }
         if (availableDimension == AvailableDimension::SECOND) {
             restartCommand(QT_TRANSLATE_NOOP("Command", "Add horizontal coordinate dimensions"));
-            createCoordDimension("DistanceX", pos);
+            createCoordDimension("DistanceX");
         }
         if (availableDimension == AvailableDimension::THIRD) {
             restartCommand(QT_TRANSLATE_NOOP("Command", "Add 3-points angle dimension"));
-            create3pAngleDimension(selPoints[0], selPoints[1], selPoints[2], pos);
+            create3pAngleDimension({ selPoints[0], selPoints[1], selPoints[2] });
         }
         else if (availableDimension == AvailableDimension::FOURTH) {
             restartCommand(QT_TRANSLATE_NOOP("Command", "Add 3-points angle dimension"));
-            create3pAngleDimension(selPoints[1], selPoints[2], selPoints[0], pos);
+            create3pAngleDimension({ selPoints[1], selPoints[2], selPoints[0] });
         }
         else if (availableDimension == AvailableDimension::FIFTH) {
             restartCommand(QT_TRANSLATE_NOOP("Command", "Add 3-points angle dimension"));
-            create3pAngleDimension(selPoints[2], selPoints[0], selPoints[1], pos);
+            create3pAngleDimension({ selPoints[2], selPoints[0], selPoints[1] });
             availableDimension = AvailableDimension::RESET;
         }
     }
 
-    void makeCts_4MorePoints(bool& selAllowed, QPoint& pos)
+    void makeCts_4MorePoints(bool& selAllowed)
     {
         // chain distances
         if (availableDimension == AvailableDimension::FIRST) {
             restartCommand(QT_TRANSLATE_NOOP("Command", "Add horizontal chain dimension"));
-            createChainDimension("DistanceX", pos);
+            createChainDimension("DistanceX");
             selAllowed = true;
         }
         if (availableDimension == AvailableDimension::SECOND) {
             restartCommand(QT_TRANSLATE_NOOP("Command", "Add horizontal coordinate dimensions"));
-            createCoordDimension("DistanceX", pos);
+            createCoordDimension("DistanceX");
             availableDimension = AvailableDimension::RESET;
         }
     }
 
-    void makeCts_1Point1Line(bool& selAllowed, QPoint& pos)
+    void makeCts_1Point1Line(bool& selAllowed)
     {
         //distance
         if (availableDimension == AvailableDimension::FIRST) {
             restartCommand(QT_TRANSLATE_NOOP("Command", "Add point to line Distance dimension"));
-            createDistanceDimension("Distance", selPoints[0], selLine[0], pos);
+            createDistanceDimension("Distance", { selPoints[0], selLine[0] });
             selAllowed = true;
             availableDimension = AvailableDimension::RESET;
         }
     }
 
-    void makeCts_1Point1Circle(bool& selAllowed, QPoint& pos)
+    void makeCts_1Point1Circle(bool& selAllowed)
     {
         //Distance, extent distance
         if (availableDimension == AvailableDimension::FIRST) {
             restartCommand(QT_TRANSLATE_NOOP("Command", "Add length dimension"));
-            createDistanceDimension("Distance", selPoints[0], selCircleArc[0], pos);
+            createDistanceDimension("Distance", { selPoints[0], selCircleArc[0] });
             selAllowed = true;
         }
         if (availableDimension == AvailableDimension::SECOND) {
             restartCommand(QT_TRANSLATE_NOOP("Command", "Add Extent dimension"));
-            createExtentDistanceDimension("DistanceX", pos);
+            createExtentDistanceDimension("DistanceX");
             availableDimension = AvailableDimension::RESET;
         }
     }
 
-    void makeCts_1Point1Ellipse(bool& selAllowed, QPoint& pos)
+    void makeCts_1Point1Ellipse(bool& selAllowed)
     {
         //Distance
         if (availableDimension == AvailableDimension::FIRST) {
             restartCommand(QT_TRANSLATE_NOOP("Command", "Add length dimension"));
-            createDistanceDimension("Distance", selPoints[0], selEllipseArc[0], pos);
+            createDistanceDimension("Distance", { selPoints[0], selEllipseArc[0] });
             selAllowed = true;
         }
         if (availableDimension == AvailableDimension::SECOND) {
             restartCommand(QT_TRANSLATE_NOOP("Command", "Add Extent dimension"));
-            createExtentDistanceDimension("DistanceX", pos);
+            createExtentDistanceDimension("DistanceX");
             availableDimension = AvailableDimension::RESET;
         }
     }
 
-    void makeCts_1Line(bool& selAllowed, QPoint& pos)
+    void makeCts_1Line(bool& selAllowed)
     {
         //distance
         if (availableDimension == AvailableDimension::FIRST) {
             restartCommand(QT_TRANSLATE_NOOP("Command", "Add length dimension"));
-            createDistanceDimension("Distance", selLine[0], ReferenceEntry(), pos);
+            createDistanceDimension("Distance", { selLine[0] });
             specialDimension = SpecialDimension::LineOr2PointsDistance;
             selAllowed = true;
             availableDimension = AvailableDimension::RESET;
         }
     }
 
-    void makeCts_2Line(bool& selAllowed, QPoint& pos)
+    void makeCts_2Line(bool& selAllowed)
     {
         //angle (if parallel: Distance (see in createAngleDimension)).
         if (availableDimension == AvailableDimension::FIRST) {
             restartCommand(QT_TRANSLATE_NOOP("Command", "Add Angle dimension"));
-            createAngleDimension(selLine[0], selLine[1], pos);
+            createAngleDimension(selLine[0], selLine[1]);
             selAllowed = true;
         }
         if (availableDimension == AvailableDimension::SECOND) {
             restartCommand(QT_TRANSLATE_NOOP("Command", "Add Extent dimension"));
-            createExtentDistanceDimension("DistanceX", pos);
+            createExtentDistanceDimension("DistanceX");
             availableDimension = AvailableDimension::RESET;
         }
     }
 
-    void makeCts_1Line1Circle(bool& selAllowed, QPoint& pos)
+    void makeCts_1Line1Circle(bool& selAllowed)
     {
         //distance, extent distance
         if (availableDimension == AvailableDimension::FIRST) {
             restartCommand(QT_TRANSLATE_NOOP("Command", "Add circle to line Distance dimension"));
-            createDistanceDimension("Distance", selCircleArc[0], selLine[0], pos);
+            createDistanceDimension("Distance", { selCircleArc[0], selLine[0] });
             selAllowed = true;
         }
         if (availableDimension == AvailableDimension::SECOND) {
             restartCommand(QT_TRANSLATE_NOOP("Command", "Add Extent dimension"));
-            createExtentDistanceDimension("DistanceX", pos);
+            createExtentDistanceDimension("DistanceX");
             availableDimension = AvailableDimension::RESET;
         }
     }
 
-    void makeCts_1Line1Ellipse(bool& selAllowed, QPoint& pos)
+    void makeCts_1Line1Ellipse(bool& selAllowed)
     {
         //distance, extent distance
         if (availableDimension == AvailableDimension::FIRST) {
             restartCommand(QT_TRANSLATE_NOOP("Command", "Add ellipse to line Distance dimension"));
-            createDistanceDimension("Distance", selEllipseArc[0], selLine[0], pos);
+            createDistanceDimension("Distance", { selEllipseArc[0], selLine[0] });
             selAllowed = true;
         }
         if (availableDimension == AvailableDimension::SECOND) {
             restartCommand(QT_TRANSLATE_NOOP("Command", "Add Extent dimension"));
-            createExtentDistanceDimension("DistanceX", pos);
+            createExtentDistanceDimension("DistanceX");
             availableDimension = AvailableDimension::RESET;
         }
     }
 
-    void makeCts_1Circle(bool& selAllowed, QPoint& pos)
+    void makeCts_1Circle(bool& selAllowed)
     {
         if (availableDimension == AvailableDimension::FIRST) {
             restartCommand(QT_TRANSLATE_NOOP("Command", "Add Radius dimension"));
-            createRadiusDiameterDimension(selCircleArc[0], pos, true);
+            createRadiusDiameterDimension(selCircleArc[0], true);
             selAllowed = true;
         }
         if (availableDimension == AvailableDimension::SECOND) {
             restartCommand(QT_TRANSLATE_NOOP("Command", "Add Radius dimension"));
-            createRadiusDiameterDimension(selCircleArc[0], pos, false);
+            createRadiusDiameterDimension(selCircleArc[0], false);
             if (selCircleArc[0].geomEdgeType() != TechDraw::ARCOFCIRCLE) {
                 availableDimension = AvailableDimension::RESET;
             }
         }
         if (availableDimension == AvailableDimension::THIRD) {
             restartCommand(QT_TRANSLATE_NOOP("Command", "Add Arc Length dimension"));
-            createArcLengthDimension(selCircleArc[0], pos);
+            createArcLengthDimension(selCircleArc[0]);
             availableDimension = AvailableDimension::RESET;
         }
     }
 
-    void makeCts_2Circle(bool& selAllowed, QPoint& pos)
+    void makeCts_2Circle(bool& selAllowed)
     {
         //Distance
         if (availableDimension == AvailableDimension::FIRST) {
             restartCommand(QT_TRANSLATE_NOOP("Command", "Add circle to circle Distance dimension"));
-            createDistanceDimension("Distance", selCircleArc[0], selCircleArc[1], pos);
+            createDistanceDimension("Distance", { selCircleArc[0], selCircleArc[1] });
             selAllowed = true;
         }
         if (availableDimension == AvailableDimension::SECOND) {
             restartCommand(QT_TRANSLATE_NOOP("Command", "Add Extent dimension"));
-            createExtentDistanceDimension("DistanceX", pos);
+            createExtentDistanceDimension("DistanceX");
             availableDimension = AvailableDimension::RESET;
         }
     }
 
-    void makeCts_1Ellipse(bool& selAllowed, QPoint& pos)
+    void makeCts_1Ellipse(bool& selAllowed)
     {
         if (availableDimension == AvailableDimension::FIRST) {
             restartCommand(QT_TRANSLATE_NOOP("Command", "Add Radius dimension"));
-            createRadiusDiameterDimension(selEllipseArc[0], pos, true);
+            createRadiusDiameterDimension(selEllipseArc[0], true);
             selAllowed = true;
         }
         if (availableDimension == AvailableDimension::SECOND) {
             restartCommand(QT_TRANSLATE_NOOP("Command", "Add Radius dimension"));
-            createRadiusDiameterDimension(selEllipseArc[0], pos, false);
+            createRadiusDiameterDimension(selEllipseArc[0], false);
             if (selEllipseArc[0].geomEdgeType() != TechDraw::ARCOFELLIPSE) {
                 availableDimension = AvailableDimension::RESET;
             }
         }
         if (availableDimension == AvailableDimension::THIRD) {
             restartCommand(QT_TRANSLATE_NOOP("Command", "Add Arc Length dimension"));
-            createArcLengthDimension(selEllipseArc[0], pos);
+            createArcLengthDimension(selEllipseArc[0]);
             availableDimension = AvailableDimension::RESET;
         }
     }
 
-    void makeCts_2Ellipses(bool& selAllowed, QPoint& pos)
+    void makeCts_2Ellipses(bool& selAllowed)
     {
         //Distance
         if (availableDimension == AvailableDimension::FIRST) {
             restartCommand(QT_TRANSLATE_NOOP("Command", "Add ellipse to ellipse Distance dimension"));
-            createDistanceDimension("Distance", selEllipseArc[0], selEllipseArc[1], pos);
+            createDistanceDimension("Distance", { selEllipseArc[0], selEllipseArc[1] });
             selAllowed = true;
         }
         if (availableDimension == AvailableDimension::SECOND) {
             restartCommand(QT_TRANSLATE_NOOP("Command", "Add Extent dimension"));
-            createExtentDistanceDimension("DistanceX", pos);
+            createExtentDistanceDimension("DistanceX");
             availableDimension = AvailableDimension::RESET;
         }
     }
 
-    void makeCts_1Spline(bool& selAllowed, QPoint& pos)
+    void makeCts_1Spline(bool& selAllowed)
     {
         //Edge length
         if (availableDimension == AvailableDimension::FIRST) {
             restartCommand(QT_TRANSLATE_NOOP("Command", "Add edge length dimension"));
-            createArcLengthDimension(selSplineAndCo[0], pos);
+            createArcLengthDimension(selSplineAndCo[0]);
             selAllowed = true;
             availableDimension = AvailableDimension::RESET;
         }
     }
 
-    void makeCts_1SplineAndMore(bool& selAllowed, QPoint& pos)
+    void makeCts_1SplineAndMore(bool& selAllowed)
     {
         //Extend
         if (availableDimension == AvailableDimension::FIRST) {
             restartCommand(QT_TRANSLATE_NOOP("Command", "Add Extent dimension"));
-            createExtentDistanceDimension("DistanceX", pos);
+            createExtentDistanceDimension("DistanceX");
             selAllowed = true;
             availableDimension = AvailableDimension::RESET;
         }
     }
 
-    void createAreaDimension(ReferenceEntry ref, QPoint& pos)
+    void createAreaDimension(ReferenceEntry ref)
     {
         DrawViewDimension* dim = dimMaker(partFeat, "Area", { ref }, {});
 
         dims.push_back(dim);
-        moveDimension(pos, dim);
+        moveDimension(mousePos, dim);
     }
 
-    void createRadiusDiameterDimension(ReferenceEntry ref, QPoint& pos, bool firstCstr) {
+    void createRadiusDiameterDimension(ReferenceEntry ref, bool firstCstr) {
         bool isCircleGeom = true;
 
         int GeoId(TechDraw::DrawUtil::getIndexFromName(ref.getSubName()));
         TechDraw::BaseGeomPtr geom = partFeat->getGeomByIndex(GeoId);
-        isCircleGeom = geom->getGeomType() == TechDraw::CIRCLE || TechDraw::ELLIPSE;
+        isCircleGeom = (geom->getGeomType() == TechDraw::CIRCLE) || (geom->getGeomType() == TechDraw::ELLIPSE);
 
         // Use same preference as in sketcher?
         ParameterGrp::handle hGrp = App::GetApplication().GetParameterGroupByPath("User parameter:BaseApp/Preferences/Mod/TechDraw/dimensioning");
@@ -1032,61 +1035,57 @@ protected:
         }
 
         dims.push_back(dim);
-        moveDimension(pos, dim);
+        moveDimension(mousePos, dim);
     }
 
-    void createAngleDimension(ReferenceEntry ref1, ReferenceEntry ref2, QPoint& pos) {
+    void createAngleDimension(ReferenceEntry ref1, ReferenceEntry ref2) {
         if (TechDraw::isValidMultiEdge({ ref1, ref2 }) != isAngle) {
             //isValidMultiEdge check if lines are parallel.
             restartCommand(QT_TRANSLATE_NOOP("Command", "Add Distance dimension"));
-            createDistanceDimension("Distance", ref1, ref2, pos);
+            createDistanceDimension("Distance", { ref1, ref2 });
             return;
         }
 
         DrawViewDimension* dim = dimMaker(partFeat, "Angle", {ref1, ref2}, {});
 
         dims.push_back(dim);
-        moveDimension(pos, dim);
+        moveDimension(mousePos, dim);
     }
 
-    void create3pAngleDimension(ReferenceEntry ref1, ReferenceEntry ref2, ReferenceEntry ref3, QPoint& pos)
+    void create3pAngleDimension(ReferenceVector refs)
     {
-        DrawViewDimension* dim = dimMaker(partFeat, "Angle3Pt", {ref1, ref2, ref3}, {});
+        DrawViewDimension* dim = dimMaker(partFeat, "Angle3Pt", refs, {});
 
         dims.push_back(dim);
-        moveDimension(pos, dim);
+        moveDimension(mousePos, dim);
     }
 
-    void createArcLengthDimension(ReferenceEntry ref, QPoint& pos)
+    void createArcLengthDimension(ReferenceEntry ref)
     {
         DrawViewDimension* dim = makeArcLengthDimension(ref);
 
         dims.push_back(dim);
-        moveDimension(pos, dim);
+        moveDimension(mousePos, dim);
     }
 
-    void createDistanceDimension(std::string type, ReferenceEntry ref1, ReferenceEntry ref2, QPoint& pos) {
-        ReferenceVector refs = { ref1 };
-        if (ref2.hasGeometry()) { // if valid
-            refs.push_back(ref2);
-        }
-
+    void createDistanceDimension(std::string type, ReferenceVector refs)
+    {
         DrawViewDimension* dim = dimMaker(partFeat, type, refs, {});
 
         dims.push_back(dim);
-        moveDimension(pos, dim);
+        moveDimension(mousePos, dim);
     }
 
-    void createExtentDistanceDimension(std::string type, QPoint& pos) {
+    void createExtentDistanceDimension(std::string type) {
         specialDimension = SpecialDimension::ExtendDistance;
 
         DrawViewDimension* dim = DrawDimHelper::makeExtentDim(partFeat, type, allRefs());
 
         dims.push_back(dim);
-        moveDimension(pos, dim);
+        moveDimension(mousePos, dim);
     }
 
-    void updateDistanceType(QPoint& pos)
+    void updateDistanceType()
     {
         if (dims.empty()) {
             return;
@@ -1098,7 +1097,7 @@ protected:
         Base::Vector3d pnt1 = Rez::guiX(pp.first());
         Base::Vector3d pnt2 = Rez::guiX(pp.second());
 
-        QPointF fpos = getDimPositionToBe(pos);
+        QPointF fpos = getDimPositionToBe(mousePos);
 
         double minX, minY, maxX, maxY;
         minX = min(pnt1.x, pnt2.x);
@@ -1127,14 +1126,14 @@ protected:
         specialDimension = SpecialDimension::LineOr2PointsDistance;
 
         if (selLine.size() == 1) {
-            createDistanceDimension(newType, selLine[0], ReferenceEntry(), pos);
+            createDistanceDimension(newType, { selLine[0] });
         }
         else {
-            createDistanceDimension(newType, selPoints[0], selPoints[1], pos);
+            createDistanceDimension(newType, { selPoints[0], selPoints[1] });
         }
     }
 
-    void updateExtentDistanceType(QPoint& pos)
+    void updateExtentDistanceType()
     {
         if (dims.empty()) {
             return;
@@ -1146,7 +1145,7 @@ protected:
         Base::Vector3d pnt1 = Rez::guiX(pp.first());
         Base::Vector3d pnt2 = Rez::guiX(pp.second());
 
-        QPointF fpos = getDimPositionToBe(pos);
+        QPointF fpos = getDimPositionToBe(mousePos);
 
         double minX, minY, maxX, maxY;
         minX = min(pnt1.x, pnt2.x);
@@ -1157,16 +1156,16 @@ protected:
         if (fpos.x() > minX && fpos.x() < maxX
             && (fpos.y() < minY || fpos.y() > maxY) && type != DimensionType::DistanceX) {
             restartCommand(QT_TRANSLATE_NOOP("Command", "Add DistanceX extent dimension"));
-            createExtentDistanceDimension("DistanceX", pos);
+            createExtentDistanceDimension("DistanceX");
         }
         else if (fpos.y() > minY && fpos.y() < maxY
             && (fpos.x() < minX || fpos.x() > maxX) && type != DimensionType::DistanceY) {
             restartCommand(QT_TRANSLATE_NOOP("Command", "Add DistanceY extent dimension"));
-            createExtentDistanceDimension("DistanceY", pos);
+            createExtentDistanceDimension("DistanceY");
         }
     }
 
-    void updateChainDistanceType(QPoint& pos)
+    void updateChainDistanceType()
     {
         if (dims.empty()) {
             return;
@@ -1187,7 +1186,7 @@ protected:
             maxY = max(maxY, max(pnt1.y, pnt2.y));
         }
 
-        QPointF fpos = getDimPositionToBe(pos);
+        QPointF fpos = getDimPositionToBe(mousePos);
 
         auto type = static_cast<DimensionType>(dims[0]->Type.getValue());
 
@@ -1195,37 +1194,37 @@ protected:
             && (fpos.y() < minY || fpos.y() > maxY) && type != DimensionType::DistanceX) {
             if (specialDimension == SpecialDimension::ChainDistance) {
                 restartCommand(QT_TRANSLATE_NOOP("Command", "Add horizontal chain dimensions"));
-                createChainDimension("DistanceX", pos);
+                createChainDimension("DistanceX");
             }
             else {
                 restartCommand(QT_TRANSLATE_NOOP("Command", "Add horizontal coord dimensions"));
-                createCoordDimension("DistanceX", pos);
+                createCoordDimension("DistanceX");
             }
         }
         else if (fpos.y() > minY && fpos.y() < maxY
             && (fpos.x() < minX || fpos.x() > maxX) && type != DimensionType::DistanceY) {
             if (specialDimension == SpecialDimension::ChainDistance) {
                 restartCommand(QT_TRANSLATE_NOOP("Command", "Add vertical chain dimensions"));
-                createChainDimension("DistanceY", pos);
+                createChainDimension("DistanceY");
             }
             else {
                 restartCommand(QT_TRANSLATE_NOOP("Command", "Add vertical coord dimensions"));
-                createCoordDimension("DistanceY", pos);
+                createCoordDimension("DistanceY");
             }
         }
         else if (((fpos.y() < minY || fpos.y() > maxY) && (fpos.x() < minX || fpos.x() > maxX)) && type != DimensionType::Distance) {
             if (specialDimension == SpecialDimension::ChainDistance) {
                 restartCommand(QT_TRANSLATE_NOOP("Command", "Add oblique chain dimensions"));
-                createChainDimension("Distance", pos);
+                createChainDimension("Distance");
             }
             else {
                 restartCommand(QT_TRANSLATE_NOOP("Command", "Add oblique coord dimensions"));
-                createCoordDimension("Distance", pos);
+                createCoordDimension("Distance");
             }
         }
     }
 
-    void createChainDimension(std::string type, QPoint& pos)
+    void createChainDimension(std::string type)
     {
         specialDimension = SpecialDimension::ChainDistance;
         if (type == "Distance") {
@@ -1241,7 +1240,7 @@ protected:
         }
     }
 
-    void createCoordDimension(std::string type, QPoint& pos)
+    void createCoordDimension(std::string type)
     {
         specialDimension = SpecialDimension::CoordDistance;
         if (type == "Distance") {
@@ -1269,7 +1268,7 @@ protected:
         Gui::Command::abortCommand();
         Gui::Command::openCommand(QT_TRANSLATE_NOOP("Command", "Dimension"));
         specialDimension = SpecialDimension::None;
-        previousPos = QPoint(0,0);
+        mousePos = QPoint(0,0);
         clearRefVectors();
         partFeat = nullptr;
         dims.clear();
