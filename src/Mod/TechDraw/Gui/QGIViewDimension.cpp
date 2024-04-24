@@ -1264,7 +1264,7 @@ void QGIViewDimension::resetArrows() const
 }
 
 void QGIViewDimension::drawArrows(int count, const Base::Vector2d positions[], double angles[],
-                                  bool flipped) const
+                                  bool flipped, bool forcePoint) const
 {
     const int arrowCount = 2;
     QGIArrow* arrows[arrowCount] = {aHead1, aHead2};
@@ -1284,7 +1284,8 @@ void QGIViewDimension::drawArrows(int count, const Base::Vector2d positions[], d
             continue;
         }
 
-        arrow->setStyle(QGIArrow::getPrefArrowStyle());
+        // some dimensions must use point ends (area). The point style is 3.
+        arrow->setStyle(forcePoint ? 3 : QGIArrow::getPrefArrowStyle());
         auto vp = static_cast<ViewProviderDimension*>(getViewProvider(getViewObject()));
         auto arrowSize = vp->Arrowsize.getValue();
         arrow->setSize(arrowSize);
@@ -1412,7 +1413,7 @@ void QGIViewDimension::drawDimensionLine(QPainterPath& painterPath,
                                          const Base::Vector2d& targetPoint, double lineAngle,
                                          double startPosition, double jointPosition,
                                          const Base::BoundBox2d& labelRectangle, int arrowCount,
-                                         int standardStyle, bool flipArrows) const
+                                         int standardStyle, bool flipArrows, bool forcePointStyle) const
 {
     // Keep the convention start position <= 0
     jointPosition *= normalizeStartPosition(startPosition, lineAngle);
@@ -1432,7 +1433,7 @@ void QGIViewDimension::drawDimensionLine(QPainterPath& painterPath,
     arrowAngles[0] = lineAngle;
     arrowAngles[1] = lineAngle + M_PI;
 
-    drawArrows(arrowCount, arrowPositions, arrowAngles, flipArrows);
+    drawArrows(arrowCount, arrowPositions, arrowAngles, flipArrows, forcePointStyle);
 }
 
 void QGIViewDimension::drawDimensionArc(QPainterPath& painterPath, const Base::Vector2d& arcCenter,
@@ -2103,6 +2104,7 @@ void QGIViewDimension::drawAreaExecutive(const Base::Vector2d& centerPoint, doub
 
     Base::Vector2d labelCenter(labelRectangle.GetCenter());
     double labelAngle = 0.0;
+    bool forcePointStyle = true;
 
     if (standardStyle == ViewProviderDimension::STD_STYLE_ISO_REFERENCING
         || standardStyle == ViewProviderDimension::STD_STYLE_ASME_REFERENCING) {
@@ -2118,11 +2120,10 @@ void QGIViewDimension::drawAreaExecutive(const Base::Vector2d& centerPoint, doub
             jointDirection = getAsmeRefJointPoint(labelRectangle, left) - centerPoint;
         }
 
-        double lineAngles = jointDirection.Angle();
+        double lineAngle = jointDirection.Angle();
         double jointPositions = jointDirection.Length();
 
-        drawDimensionLine(areaPath, centerPoint, lineAngles, 0.0,
-                          jointPositions, labelRectangle, 1, standardStyle, flipArrow);
+        drawDimensionLine(areaPath, centerPoint, lineAngle, 0.0, jointPositions, labelRectangle, 1, standardStyle, flipArrow, forcePointStyle);
 
         Base::Vector2d outsetPoint(standardStyle == ViewProviderDimension::STD_STYLE_ISO_REFERENCING
                                        ? getIsoRefOutsetPoint(labelRectangle, left)
@@ -2141,7 +2142,7 @@ void QGIViewDimension::drawAreaExecutive(const Base::Vector2d& centerPoint, doub
         lineAngle = lineAngle - M_PI;
         double labelPosition = -cos(devAngle) * ((labelCenter - centerPoint).Length());
 
-        drawDimensionLine(areaPath, centerPoint, lineAngle, 0.0, labelPosition, labelRectangle, 1, standardStyle, flipArrow);
+        drawDimensionLine(areaPath, centerPoint, lineAngle, 0.0, labelPosition, labelRectangle, 1, standardStyle, flipArrow, forcePointStyle);
     }
     else if (standardStyle == ViewProviderDimension::STD_STYLE_ASME_INLINED) {
         // Text must remain horizontal, but it may split the leader line
@@ -2149,7 +2150,7 @@ void QGIViewDimension::drawAreaExecutive(const Base::Vector2d& centerPoint, doub
         double lineAngle = labelDirection.Angle();
         double labelPosition = labelDirection.Length();
 
-        drawDimensionLine(areaPath, centerPoint, lineAngle, 0.0, labelPosition, labelRectangle, 1, standardStyle, flipArrow);
+        drawDimensionLine(areaPath, centerPoint, lineAngle, 0.0, labelPosition, labelRectangle, 1, standardStyle, flipArrow, forcePointStyle);
     }
     else {
         Base::Console().Error(
