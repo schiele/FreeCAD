@@ -345,7 +345,6 @@ Gui::ToolBarItem* Workbench::setupToolBars() const
     *extattribs << "TechDraw_ExtensionChangeLineAttributes";
     *extattribs << "TechDraw_ExtensionExtendShortenLineGroup";
     *extattribs << "TechDraw_ExtensionLockUnlockView";
-    *extattribs << "TechDraw_ExtensionPositionSectionView";
     *extattribs << "TechDraw_ExtensionPosChainDimensionGroup";
     *extattribs << "TechDraw_ExtensionCascadeDimensionGroup";
     if (separatedTools) {
@@ -451,7 +450,6 @@ Gui::ToolBarItem* Workbench::setupCommandBars() const
     *extattribs << "TechDraw_ExtensionChangeLineAttributes";
     *extattribs << "TechDraw_ExtensionExtendShortenLineGroup";
     *extattribs << "TechDraw_ExtensionLockUnlockView";
-    *extattribs << "TechDraw_ExtensionPositionSectionView";
     *extattribs << "TechDraw_ExtensionPosChainDimensionGroup";
     *extattribs << "TechDraw_ExtensionCascadeDimensionGroup";
     *extattribs << "TechDraw_ExtensionAreaAnnotation";
