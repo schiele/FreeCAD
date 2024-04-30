@@ -31,6 +31,7 @@
 #include <QKeyEvent>
 #include <QMouseEvent>
 #include <QPoint>
+#include <QPixmap>
 #endif//#ifndef _PreComp_
 
 #include <App/Document.h>
@@ -46,6 +47,8 @@
 #include <Gui/MainWindow.h>
 #include <Gui/Selection.h>
 #include <Gui/SelectionObject.h>
+#include <Gui/View3DInventor.h>
+#include <Gui/View3DInventorViewer.h>
 #include <Mod/TechDraw/App/DrawDimHelper.h>
 #include <Mod/TechDraw/App/DrawPage.h>
 #include <Mod/TechDraw/App/DrawUtil.h>
@@ -905,6 +908,9 @@ protected:
             if (!isVerticalDistance({ selLine[0] })) {
                 availableDimension = AvailableDimension::RESET;
             }
+            // Potential improvement for the future: we could show available modes in cursor trail.
+            //std::vector<QPixmap> pixmaps = { icon("TechDraw_LengthDimension"), icon("TechDraw_ExtensionCreateHorizChamferDimension") };
+            //addCursorTail(pixmaps);
         }
         if (availableDimension == AvailableDimension::SECOND) {
             restartCommand(QT_TRANSLATE_NOOP("Command", "Add DistanceX Chamfer dimension"));
@@ -1347,6 +1353,17 @@ protected:
             refs, { "Edge", "Vertex" }, { 1, 2 }, { isDiagonal });
 
         return geometryRefs2d == TechDraw::isDiagonal;
+    }
+
+    QPixmap icon(std::string name)
+    {
+        qreal pixelRatio = 1;
+        Gui::View3DInventorViewer* viewer = getViewer();
+        if (viewer) {
+            pixelRatio = viewer->devicePixelRatio();
+        }
+        int width = 16 * pixelRatio;
+        return Gui::BitmapFactory().pixmapFromSvg(name.c_str(), QSize(width, width));
     }
 
     void restartCommand(const char* cstrName) {
