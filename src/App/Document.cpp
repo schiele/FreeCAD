@@ -3998,8 +3998,22 @@ std::vector<App::DocumentObject*> Document::getRootObjects() const
     std::vector < App::DocumentObject* > ret;
 
     for (auto objectIt : d->objectArray) {
-        if (objectIt->getInList().empty())
+        bool noParents = objectIt->getInList().empty();
+
+        if (!noParents) {
+            // check if all the parents are links. In which case its still a root object
+            noParents = true;
+            for (auto* obj : objectIt->getInList()) {
+                if (!obj->isDerivedFrom<App::Link>()) {
+                    noParents = false;
+                    break;
+                }
+            }
+        }
+
+        if (noParents) {
             ret.push_back(objectIt);
+        }
     }
 
     return ret;
