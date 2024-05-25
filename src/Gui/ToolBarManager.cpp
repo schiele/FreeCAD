@@ -21,6 +21,8 @@
  ***************************************************************************/
 
 #include "PreCompiled.h"
+#include <boost/signals2/connection.hpp>
+#include <boost/algorithm/string/predicate.hpp>
 #ifndef _PreComp_
 # include <QAction>
 # include <QApplication>
@@ -172,6 +174,32 @@ void ToolBarManager::destruct()
 ToolBarManager::ToolBarManager() = default;
 
 ToolBarManager::~ToolBarManager() = default;
+
+ToolBarArea ToolBarManager::toolBarArea(QWidget *widget) const
+{
+    if (auto toolBar = qobject_cast<QToolBar*>(widget)) {
+        if (toolBar->isFloating()) {
+            return ToolBarArea::NoToolBarArea;
+        }
+
+        auto qtToolBarArea = getMainWindow()->toolBarArea(toolBar);
+        switch (qtToolBarArea) {
+            case Qt::LeftToolBarArea:
+                return ToolBarArea::LeftToolBarArea;
+            case Qt::RightToolBarArea:
+                return ToolBarArea::RightToolBarArea;
+            case Qt::TopToolBarArea:
+                return ToolBarArea::TopToolBarArea;
+            case Qt::BottomToolBarArea:
+                return ToolBarArea::BottomToolBarArea;
+            default:
+                // no-op
+                break;
+        }
+    }
+
+    return ToolBarArea::NoToolBarArea;
+}
 
 namespace {
 QPointer<QWidget> createActionWidget()
@@ -473,18 +501,18 @@ QAction* ToolBarManager::findAction(const QList<QAction*>& acts, const QString& 
     return nullptr; // no item with the user data found
 }
 
-QList<QToolBar*> ToolBarManager::toolBars() const
-{
-    QWidget* mw = getMainWindow();
-    QList<QToolBar*> tb;
-    QList<QToolBar*> bars = getMainWindow()->findChildren<QToolBar*>();
-    for (QList<QToolBar*>::Iterator it = bars.begin(); it != bars.end(); ++it) {
-        if ((*it)->parentWidget() == mw)
-            tb.push_back(*it);
-    }
-
-    return tb;
-}
+QList<QToolBar*> ToolBarManager::toolBars() const 
+{ 
+    QWidget* mw = getMainWindow(); 
+    QList<QToolBar*> tb; 
+    QList<QToolBar*> bars = getMainWindow()->findChildren<QToolBar*>(); 
+    for (QList<QToolBar*>::Iterator it = bars.begin(); it != bars.end(); ++it) { 
+        if ((*it)->parentWidget() == mw) 
+            tb.push_back(*it); 
+    } 
+ 
+    return tb; 
+} 
 
 ToolBarItem::DefaultVisibility ToolBarManager::getToolbarPolicy(const QToolBar* toolbar) const
 {

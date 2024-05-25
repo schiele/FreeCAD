@@ -25,13 +25,28 @@
 #define GUI_TOOLBARMANAGER_H
 
 #include <string>
+#include <boost_signals2.hpp>
+
 #include <QStringList>
+#include <QTimer>
+
 #include <FCGlobal.h>
+#include <Base/Parameter.h>
 
 class QAction;
 class QToolBar;
 
 namespace Gui {
+
+// Qt treats area as Flag so in theory toolbar could be in multiple areas at once.
+// We don't do that here so simple enum should suffice.
+enum class ToolBarArea {
+    NoToolBarArea,
+    LeftToolBarArea,
+    RightToolBarArea,
+    TopToolBarArea,
+    BottomToolBarArea,
+};
 
 class GuiExport ToolBarItem
 {
@@ -108,6 +123,8 @@ public:
 
     void setState(const QList<QString>& names, State state);
     void setState(const QString& name, State state);
+
+    ToolBarArea toolBarArea(QWidget* toolBar) const;
     
 protected:
     void setup(ToolBarItem*, QToolBar*) const;
