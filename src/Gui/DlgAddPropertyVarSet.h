@@ -84,17 +84,26 @@ private:
     void removeEditor();
     void addEditor(PropertyEditor::PropertyItem* propertyItem, std::string& type);
 
-    bool isSupportedType(std::string& type);
+    bool isUnsupportedType(const Base::Type& type);
+    bool isTypeWithEditor(const std::string& type);
     void createProperty(std::string& name, std::string& group);
 
     void onNamePropertyDetermined(const QString& text);
     void onGroupDetermined();
     void onTypePropertyDetermined();
 
+    void getSupportedTypes(std::vector<Base::Type>& types);
+
 private:
     std::unordered_set<std::string> unsupportedTypes = {
+        "App::Property", "App::PropertyComplexGeoData", "App::PropertyExpressionContainer",
+        "App::PropertyExpressionEngine", "App::PropertyGeometry", "App::PropertyIntegerSet",
+        "App::PropertyLinkBase", "App::PropertyLinkListBase", "App::PropertyLists",
+        "App::PropertyXLinkContainer", "Sketcher::PropertyConstraintList"};
+    std::unordered_set<std::string> typesWithoutEditor = {
         "App::PropertyVector", "App::PropertyVectorDistance", "App::PropertyMatrix",
-        "App::PropertyRotation", "App::PropertyPlacement", "App::PropertyEnumeration"};
+        "App::PropertyRotation", "App::PropertyPlacement", "App::PropertyEnumeration",
+        "App::PropertyDirection", "App::PropertyPlacementList", "App::PropertyPosition"};
 
     App::VarSet* varSet;
     std::unique_ptr<Ui_DlgAddPropertyVarSet> ui;
