@@ -26,6 +26,12 @@
 #include "XMLTools.h"
 
 using namespace Base;
+#ifndef XERCES_CPP_NAMESPACE_BEGIN
+#define XERCES_CPP_NAMESPACE_QUALIFIER
+using namespace XERCES_CPP_NAMESPACE;
+#else
+XERCES_CPP_NAMESPACE_USE
+#endif
 
 std::unique_ptr<XERCES_CPP_NAMESPACE::XMLTranscoder> XMLTools::transcoder;
 

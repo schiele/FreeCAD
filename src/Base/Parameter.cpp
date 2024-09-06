@@ -54,11 +54,12 @@
 
 FC_LOG_LEVEL_INIT("Parameter", true, true)
 
-//#ifdef XERCES_HAS_CPP_NAMESPACE
-//  using namespace xercesc;
-//#endif
-
+#ifndef XERCES_CPP_NAMESPACE_BEGIN
+#define XERCES_CPP_NAMESPACE_QUALIFIER
+using namespace XERCES_CPP_NAMESPACE;
+#else
 XERCES_CPP_NAMESPACE_USE
+#endif
 using namespace Base;
 
 
