@@ -1,4 +1,4 @@
 BUILD: 0.21rc1-5368-g2d57e9f2af
 system: 42510
 date: Thu Oct 24 06:00:08 AM CEST 2024
-tasks: configure build[incomplete]
+tasks: configure build install[incomplete]
