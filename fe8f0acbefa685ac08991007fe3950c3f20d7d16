@@ -1,4 +1,4 @@
 BUILD: 1.0rc2-189-gfe8f0acbef
 system: 42540
 date: Fri Oct 25 07:22:08 PM CEST 2024
-tasks: configure build[incomplete]
+tasks: configure build install[incomplete]
