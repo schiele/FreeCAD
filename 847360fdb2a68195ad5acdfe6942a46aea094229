@@ -1,4 +1,4 @@
 BUILD: 0.21.2-72-g847360fdb2
 system: 42540
 date: Wed Oct 30 10:36:22 AM CET 2024
-tasks: configure[incomplete]
+tasks: configure build[incomplete]
