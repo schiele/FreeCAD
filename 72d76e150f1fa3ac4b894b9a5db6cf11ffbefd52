@@ -2,3 +2,29 @@ BUILD: 0.21.2-69-g72d76e150f
 system: 42540
 date: Wed Oct 30 07:41:49 AM CET 2024
 tasks: configure build[failed]
+FAILED:
+/home/rschiele/freecad/source/src/CXX/Python3/Objects.hxx:2586:20: note: remove the ‘< >’
+/home/rschiele/freecad/source/src/CXX/Python3/Objects.hxx:2593:20: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+ 2593 |         mapref<T>( MapBase<T> &map, const Object &k )
+      |                    ^~~~~~~~~~
+/home/rschiele/freecad/source/src/CXX/Python3/Objects.hxx:2593:20: note: remove the ‘< >’
+/home/rschiele/freecad/source/src/CXX/Python3/Objects.hxx:2599:17: warning: template-id not allowed for destructor in C++20 [-Wtemplate-id-cdtor]
+ 2599 |         virtual ~mapref<T>()
+      |                 ^
+/home/rschiele/freecad/source/src/CXX/Python3/Objects.hxx:2599:17: note: remove the ‘< >’
+/home/rschiele/freecad/source/src/CXX/Python3/Objects.hxx:2759:28: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+ 2759 |         explicit MapBase<T>()
+      |                            ^
+/home/rschiele/freecad/source/src/CXX/Python3/Objects.hxx:2759:28: note: remove the ‘< >’
+/home/rschiele/freecad/source/src/CXX/Python3/Objects.hxx:2776:30: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+ 2776 |         explicit MapBase<T>( PyObject *pyob, bool owned = false )
+      |                              ^~~~~~~~
+/home/rschiele/freecad/source/src/CXX/Python3/Objects.hxx:2776:30: note: remove the ‘< >’
+/home/rschiele/freecad/source/src/CXX/Python3/Objects.hxx:2783:19: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+ 2783 |         MapBase<T>( const Object &ob )
+      |                   ^
+/home/rschiele/freecad/source/src/CXX/Python3/Objects.hxx:2783:19: note: remove the ‘< >’
+[ 41%] Linking CXX shared library ../../lib/libFreeCADBase.so
+[ 41%] Built target FreeCADBase
+make: *** [Makefile:136: all] Error 2
+make: Leaving directory '/home/rschiele/freecad/build'
