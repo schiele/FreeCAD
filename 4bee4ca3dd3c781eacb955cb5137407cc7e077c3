@@ -1,4 +1,4 @@
 BUILD: 1.0rc2-227-g4bee4ca3dd
 system: 42540
 date: Fri Nov  1 07:49:18 AM CET 2024
-tasks: configure[incomplete]
+tasks: configure build[incomplete]
