@@ -1,4 +1,4 @@
 BUILD: 1.0rc2-254-gfd64529bfe
 system: 42590
 date: Tue Nov  5 06:44:31 PM CET 2024
-tasks: configure build[incomplete]
+tasks: configure build install[incomplete]
