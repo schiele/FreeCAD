@@ -1,4 +1,4 @@
 BUILD: 1.0rc2-263-g9b3329ff9c
 system: 42590
 date: Thu Nov  7 01:07:31 PM CET 2024
-tasks: configure[incomplete]
+tasks: configure build[incomplete]
