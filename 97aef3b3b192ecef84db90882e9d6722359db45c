@@ -2,3 +2,29 @@ BUILD: 1.0rc2-271-g97aef3b3b1
 system: 42590
 date: Sat Nov  9 06:46:43 PM CET 2024
 tasks: configure build[failed]
+FAILED:
+/usr/bin/ld: /home/rschiele/.local/lib/python3.13/site-packages/PySide6/Qt/lib/libQt6Qml.so.6: undefined reference to `QtPrivate::hasRegisteredMutableViewFunctionToIterableMetaAssociation(QMetaType)@Qt_6'
+/usr/bin/ld: /home/rschiele/.local/lib/python3.13/site-packages/PySide6/Qt/lib/libQt6Qml.so.6: undefined reference to `QTimer::singleShot(std::chrono::duration<long, std::ratio<1l, 1000000000l> >, Qt::TimerType, QObject const*, char const*)@Qt_6'
+/usr/bin/ld: /home/rschiele/.local/lib/python3.13/site-packages/PySide6/libpyside6qml.abi3.so.6.8: undefined reference to `qt_QMetaEnum_flagDebugOperator(QDebug&, unsigned long, unsigned int)@Qt_6'
+/usr/bin/ld: /home/rschiele/.local/lib/python3.13/site-packages/PySide6/Qt/lib/libQt6Qml.so.6: undefined reference to `compareThreeWay(QUrl const&, QUrl const&)@Qt_6'
+/usr/bin/ld: /home/rschiele/.local/lib/python3.13/site-packages/PySide6/Qt/lib/libQt6Qml.so.6: undefined reference to `comparesEqual(QJsonValue const&, QJsonValue const&)@Qt_6'
+/usr/bin/ld: /home/rschiele/.local/lib/python3.13/site-packages/PySide6/Qt/lib/libQt6Qml.so.6: undefined reference to `QtPrivate::lastIndexOf(QStringView, long long, char16_t, Qt::CaseSensitivity)@Qt_6'
+/usr/bin/ld: /home/rschiele/.local/lib/python3.13/site-packages/PySide6/Qt/lib/libQt6Qml.so.6: undefined reference to `QtPrivate::hasRegisteredConverterFunctionToIterableMetaSequence(QMetaType)@Qt_6'
+/usr/bin/ld: /home/rschiele/.local/lib/python3.13/site-packages/PySide6/Qt/lib/libQt6Qml.so.6: undefined reference to `comparesEqual(QEasingCurve const&, QEasingCurve const&)@Qt_6'
+/usr/bin/ld: /home/rschiele/.local/lib/python3.13/site-packages/PySide6/libpyside6qml.abi3.so.6.8: undefined reference to `qt_version_tag@Qt_6.8'
+/usr/bin/ld: /home/rschiele/.local/lib/python3.13/site-packages/PySide6/Qt/lib/libQt6Qml.so.6: undefined reference to `comparesEqual(QRegularExpression const&, QRegularExpression const&)@Qt_6'
+/usr/bin/ld: /home/rschiele/.local/lib/python3.13/site-packages/PySide6/Qt/lib/libQt6Qml.so.6: undefined reference to `QLibraryInfo::paths(QLibraryInfo::LibraryPath)@Qt_6'
+/usr/bin/ld: /home/rschiele/.local/lib/python3.13/site-packages/PySide6/Qt/lib/libQt6Qml.so.6: undefined reference to `QStringConverter::QStringConverter(QAnyStringView, QFlags<QStringConverterBase::Flag>)@Qt_6'
+/usr/bin/ld: /home/rschiele/.local/lib/python3.13/site-packages/PySide6/Qt/lib/libQt6Qml.so.6: undefined reference to `QObjectPrivate::writeToDebugStream(QDebug&) const@Qt_6_PRIVATE_API'
+collect2: error: ld returned 1 exit status
+make[2]: *** [tests/src/Gui/CMakeFiles/QuantitySpinBox_Tests_run.dir/build.make:151: tests/src/Gui/QuantitySpinBox_Tests_run] Error 1
+make[1]: *** [CMakeFiles/Makefile2:11838: tests/src/Gui/CMakeFiles/QuantitySpinBox_Tests_run.dir/all] Error 2
+[ 79%] Built target StartGui
+[ 79%] Built target MeasureGui
+[ 79%] Built target SpreadsheetGui_autogen
+[ 79%] Built target MeshGui_autogen
+[ 79%] Built target RobotGui_autogen
+[ 79%] Built target MatGui_autogen
+[ 79%] Built target TechDrawGui_autogen
+make: *** [Makefile:146: all] Error 2
+make: Leaving directory '/home/rschiele/freecad/build'
