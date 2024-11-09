@@ -2,3 +2,29 @@ BUILD: 1.0rc2-262-gac9b2da210
 system: 42590
 date: Sat Nov  9 08:44:48 AM CET 2024
 tasks: configure build[failed]
+FAILED:
+/usr/bin/ld: /home/rschiele/.local/lib/python3.13/site-packages/PySide6/libpyside6qml.abi3.so.6.8: undefined reference to `qt_QMetaEnum_flagDebugOperator(QDebug&, unsigned long, unsigned int)@Qt_6'
+/usr/bin/ld: /home/rschiele/.local/lib/python3.13/site-packages/PySide6/Qt/lib/libQt6Qml.so.6: undefined reference to `compareThreeWay(QUrl const&, QUrl const&)@Qt_6'
+/usr/bin/ld: /home/rschiele/.local/lib/python3.13/site-packages/PySide6/Qt/lib/libQt6Qml.so.6: undefined reference to `comparesEqual(QJsonValue const&, QJsonValue const&)@Qt_6'
+/usr/bin/ld: /home/rschiele/.local/lib/python3.13/site-packages/PySide6/Qt/lib/libQt6Qml.so.6: undefined reference to `QtPrivate::lastIndexOf(QStringView, long long, char16_t, Qt::CaseSensitivity)@Qt_6'
+/usr/bin/ld: /home/rschiele/.local/lib/python3.13/site-packages/PySide6/Qt/lib/libQt6Qml.so.6: undefined reference to `QtPrivate::hasRegisteredConverterFunctionToIterableMetaSequence(QMetaType)@Qt_6'
+/usr/bin/ld: /home/rschiele/.local/lib/python3.13/site-packages/PySide6/Qt/lib/libQt6Qml.so.6: undefined reference to `comparesEqual(QEasingCurve const&, QEasingCurve const&)@Qt_6'
+/usr/bin/ld: /home/rschiele/.local/lib/python3.13/site-packages/PySide6/libpyside6qml.abi3.so.6.8: undefined reference to `qt_version_tag@Qt_6.8'
+/usr/bin/ld: /home/rschiele/.local/lib/python3.13/site-packages/PySide6/Qt/lib/libQt6Qml.so.6: undefined reference to `comparesEqual(QRegularExpression const&, QRegularExpression const&)@Qt_6'
+/usr/bin/ld: /home/rschiele/.local/lib/python3.13/site-packages/PySide6/Qt/lib/libQt6Qml.so.6: undefined reference to `QLibraryInfo::paths(QLibraryInfo::LibraryPath)@Qt_6'
+/usr/bin/ld: /home/rschiele/.local/lib/python3.13/site-packages/PySide6/Qt/lib/libQt6Qml.so.6: undefined reference to `QStringConverter::QStringConverter(QAnyStringView, QFlags<QStringConverterBase::Flag>)@Qt_6'
+/usr/bin/ld: /home/rschiele/.local/lib/python3.13/site-packages/PySide6/Qt/lib/libQt6Qml.so.6: undefined reference to `QObjectPrivate::writeToDebugStream(QDebug&) const@Qt_6_PRIVATE_API'
+[ 78%] Built target QtUnitGui
+collect2: error: ld returned 1 exit status
+make[2]: *** [tests/src/Gui/CMakeFiles/QuantitySpinBox_Tests_run.dir/build.make:151: tests/src/Gui/QuantitySpinBox_Tests_run] Error 1
+make[1]: *** [CMakeFiles/Makefile2:11838: tests/src/Gui/CMakeFiles/QuantitySpinBox_Tests_run.dir/all] Error 2
+[ 78%] Built target StartGui
+[ 78%] Built target MeasureGui_autogen
+[ 78%] Built target CAMSimulator_autogen
+[ 78%] Built target SpreadsheetGui_autogen
+[ 78%] Built target MeshGui_autogen
+[ 78%] Built target MatGui_autogen
+[ 78%] Built target RobotGui_autogen
+[ 78%] Built target TechDrawGui_autogen
+make: *** [Makefile:146: all] Error 2
+make: Leaving directory '/home/rschiele/freecad/build'
