@@ -28,3 +28,5 @@ make[1]: *** [CMakeFiles/Makefile2:11838: tests/src/Gui/CMakeFiles/QuantitySpinB
 [ 79%] Built target TechDrawGui_autogen
 make: *** [Makefile:146: all] Error 2
 make: Leaving directory '/home/rschiele/freecad/build'
+======================================================================
+BUILD: 1.0rc2-271-g97aef3b3b1
