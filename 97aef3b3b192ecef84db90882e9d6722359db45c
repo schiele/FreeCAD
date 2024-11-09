@@ -33,3 +33,29 @@ BUILD: 1.0rc2-271-g97aef3b3b1
 system: 42590
 date: Sat Nov  9 06:51:23 PM CET 2024
 tasks: configure build[failed]
+FAILED:
+/usr/bin/ld: /home/rschiele/.local/lib/python3.13/site-packages/PySide6/libpyside6qml.abi3.so.6.8: undefined reference to `qt_version_tag@Qt_6.8'
+/usr/bin/ld: /home/rschiele/.local/lib/python3.13/site-packages/PySide6/Qt/lib/libQt6DBus.so.6: undefined reference to `QObjectPrivate::writeToDebugStream(QDebug&) const@Qt_6_PRIVATE_API'
+/usr/bin/ld: /home/rschiele/.local/lib/python3.13/site-packages/PySide6/Qt/lib/libQt6DBus.so.6: undefined reference to `QObject::startTimer(std::chrono::duration<long, std::ratio<1l, 1000000000l> >, Qt::TimerType)@Qt_6'
+/usr/bin/ld: /home/rschiele/.local/lib/python3.13/site-packages/PySide6/Qt/lib/libQt6Qml.so.6: undefined reference to `comparesEqual(QRegularExpression const&, QRegularExpression const&)@Qt_6'
+/usr/bin/ld: /home/rschiele/.local/lib/python3.13/site-packages/PySide6/Qt/lib/libQt6Qml.so.6: undefined reference to `QLibraryInfo::paths(QLibraryInfo::LibraryPath)@Qt_6'
+collect2: error: ld returned 1 exit status
+make[2]: *** [tests/src/Gui/CMakeFiles/QuantitySpinBox_Tests_run.dir/build.make:151: tests/src/Gui/QuantitySpinBox_Tests_run] Error 1
+make[1]: *** [CMakeFiles/Makefile2:11838: tests/src/Gui/CMakeFiles/QuantitySpinBox_Tests_run.dir/all] Error 2
+/usr/bin/ld: /home/rschiele/.local/lib/python3.13/site-packages/PySide6/Qt/lib/libQt6Qml.so.6: undefined reference to `QStringConverter::QStringConverter(QAnyStringView, QFlags<QStringConverterBase::Flag>)@Qt_6'
+/usr/bin/ld: /home/rschiele/.local/lib/python3.13/site-packages/PySide6/Qt/lib/libQt6DBus.so.6: undefined reference to `QObjectPrivate::writeToDebugStream(QDebug&) const@Qt_6_PRIVATE_API'
+/usr/bin/ld: /home/rschiele/.local/lib/python3.13/site-packages/PySide6/Qt/lib/libQt6DBus.so.6: undefined reference to `QObject::startTimer(std::chrono::duration<long, std::ratio<1l, 1000000000l> >, Qt::TimerType)@Qt_6'
+collect2: error: ld returned 1 exit status
+make[2]: *** [src/Main/CMakeFiles/FreeCADMain.dir/build.make:150: bin/FreeCAD] Error 1
+make[1]: *** [CMakeFiles/Makefile2:4645: src/Main/CMakeFiles/FreeCADMain.dir/all] Error 2
+[ 78%] Built target InspectionGui
+[ 78%] Built target MeasureGui_autogen
+[ 78%] Built target CAMSimulator_autogen
+[ 78%] Built target StartGui
+[ 78%] Built target MeshGui_autogen
+[ 78%] Built target SpreadsheetGui_autogen
+[ 78%] Built target RobotGui_autogen
+[ 78%] Built target MatGui_autogen
+[ 78%] Built target TechDrawGui_autogen
+make: *** [Makefile:146: all] Error 2
+make: Leaving directory '/home/rschiele/freecad/build'
