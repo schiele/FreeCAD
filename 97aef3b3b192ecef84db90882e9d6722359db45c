@@ -59,3 +59,5 @@ make[1]: *** [CMakeFiles/Makefile2:4645: src/Main/CMakeFiles/FreeCADMain.dir/all
 [ 78%] Built target TechDrawGui_autogen
 make: *** [Makefile:146: all] Error 2
 make: Leaving directory '/home/rschiele/freecad/build'
+======================================================================
+BUILD: 1.0rc2-271-g97aef3b3b1
