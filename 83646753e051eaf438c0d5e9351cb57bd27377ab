@@ -1,4 +1,4 @@
 BUILD: 1.0rc4-1-g83646753e0
 system: 42630
 date: Thu Nov 14 08:40:57 AM CET 2024
-tasks: configure build install[incomplete]
+tasks: configure build install
