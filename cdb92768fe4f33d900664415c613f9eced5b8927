@@ -1,4 +1,4 @@
 BUILD: 0.21rc1-5573-gcdb92768fe
 system: 42630
 date: Tue Nov 19 08:29:52 AM CET 2024
-tasks:[incomplete]
+tasks: configure[incomplete]
