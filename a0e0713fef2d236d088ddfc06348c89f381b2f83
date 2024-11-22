@@ -1,4 +1,4 @@
 BUILD: 0.21rc1-5611-ga0e0713fef
 system: 42670
 date: Fri Nov 22 06:18:48 PM CET 2024
-tasks: configure[incomplete]
+tasks: configure build[incomplete]
