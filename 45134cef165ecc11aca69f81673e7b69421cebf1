@@ -1,4 +1,4 @@
 BUILD: 0.21rc1-5620-g45134cef16
 system: 42670
 date: Sun Nov 24 08:50:44 AM CET 2024
-tasks: configure build[incomplete]
+tasks: configure build install[incomplete]
