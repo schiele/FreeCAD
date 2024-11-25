@@ -1,4 +1,4 @@
 BUILD: 1.0.0-10-ga15134d79b
 system: 42670
 date: Mon Nov 25 07:47:34 PM CET 2024
-tasks: configure[incomplete]
+tasks: configure build[incomplete]
