@@ -1,4 +1,4 @@
 BUILD: 0.21rc1-5623-gdf97a3ad21
 system: 42670
 date: Mon Nov 25 01:18:30 PM CET 2024
-tasks: configure build[incomplete]
+tasks: configure build install[incomplete]
