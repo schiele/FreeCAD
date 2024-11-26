@@ -1,4 +1,4 @@
 BUILD: 1.0.0-12-gd88524b4f7
 system: 42670
 date: Tue Nov 26 07:06:00 PM CET 2024
-tasks: configure build[incomplete]
+tasks: configure build install[incomplete]
