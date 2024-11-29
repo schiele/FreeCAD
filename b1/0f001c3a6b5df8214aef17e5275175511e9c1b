@@ -1,4 +1,4 @@
 BUILD: 1.0.0-17-gb10f001c3a
 system: 42710
 date: Fri Nov 29 06:38:13 PM CET 2024
-tasks: configure build install[incomplete]
+tasks: configure build install
