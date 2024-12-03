@@ -1,4 +1,4 @@
 BUILD: 0.21rc1-5755-ge2b36e583b
 system: 42710
 date: Tue Dec  3 07:57:28 PM CET 2024
-tasks: configure build[incomplete]
+tasks: configure build install[incomplete]
