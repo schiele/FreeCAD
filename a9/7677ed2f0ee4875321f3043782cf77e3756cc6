@@ -1,4 +1,4 @@
 BUILD: 0.21rc1-5786-ga97677ed2f
 system: 42710
 date: Wed Dec  4 04:29:59 PM CET 2024
-tasks: configure[incomplete]
+tasks: configure build[incomplete]
