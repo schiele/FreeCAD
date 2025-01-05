@@ -1,4 +1,4 @@
 BUILD: 0.21rc1-6089-ga974e413fa
 system: 42790
 date: Sun Jan  5 08:46:32 AM CET 2025
-tasks:[incomplete]
+tasks: configure[incomplete]
