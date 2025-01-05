@@ -1,4 +1,4 @@
 BUILD: 1.0.0-41-gd9e8fe0d7d
 system: 42790
 date: Sun Jan  5 09:46:53 AM CET 2025
-tasks: configure[incomplete]
+tasks: configure build[incomplete]
