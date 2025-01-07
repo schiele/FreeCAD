@@ -1,4 +1,4 @@
 BUILD: 1.0.0-42-g5a16f625b7
 system: 42790
 date: Tue Jan  7 07:15:56 AM CET 2025
-tasks: configure build[incomplete]
+tasks: configure build install[incomplete]
