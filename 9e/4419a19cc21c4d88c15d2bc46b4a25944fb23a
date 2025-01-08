@@ -1,4 +1,4 @@
 BUILD: 1.0.0-44-g9e4419a19c
 system: 42790
 date: Wed Jan  8 11:56:32 AM CET 2025
-tasks: configure build install[incomplete]
+tasks: configure build install
