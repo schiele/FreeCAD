@@ -1,4 +1,4 @@
 BUILD: 0.21rc1-6236-ge22b226866
 system: 42870
 date: Sun Jan 19 06:48:40 AM CET 2025
-tasks: configure build[incomplete]
+tasks: configure build install[incomplete]
