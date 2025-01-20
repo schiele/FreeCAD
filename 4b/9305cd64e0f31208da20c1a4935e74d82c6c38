@@ -2,3 +2,29 @@ BUILD: 0.21rc1-6282-g4b9305cd64
 system: 42870
 date: Mon Jan 20 08:07:41 PM CET 2025
 tasks: configure build[failed]
+FAILED:
+      |                                     ^~~~~~~~~~
+In file included from /home/rschiele/freecad/source/src/App/PropertyContainer.h:31,
+                 from /home/rschiele/freecad/source/src/App/ExtensionContainer.h:27,
+                 from /home/rschiele/freecad/source/src/App/TransactionalObject.h:27,
+                 from /home/rschiele/freecad/source/src/App/DocumentObject.h:28,
+                 from /home/rschiele/freecad/source/src/Gui/Selection.h:32,
+                 from /home/rschiele/freecad/source/src/Gui/SelectionFilter.h:30:
+/home/rschiele/freecad/source/src/App/DynamicProperty.h: At global scope:
+/home/rschiele/freecad/source/src/App/DynamicProperty.h:78:17: warning: ‘App::DynamicProperty’ declared with greater visibility than the type of its field ‘App::DynamicProperty::props’ [-Wattributes]
+   78 | class AppExport DynamicProperty
+      |                 ^~~~~~~~~~~~~~~
+/home/rschiele/freecad/source/src/Mod/PartDesign/Gui/SketchWorkflow.cpp: In member function ‘void {anonymous}::SketchRequestSelection::setOriginTemporaryVisibility()’:
+/home/rschiele/freecad/source/src/Mod/PartDesign/Gui/SketchWorkflow.cpp:547:40: error: no matching function for call to ‘Gui::ViewProviderCoordinateSystem::setTemporaryVisibility(bool, bool)’
+  547 |             vpo->setTemporaryVisibility(true, true);
+      |             ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~
+In file included from /home/rschiele/freecad/source/src/Mod/PartDesign/Gui/TaskFeaturePick.h:33,
+                 from /home/rschiele/freecad/source/src/Mod/PartDesign/Gui/SketchWorkflow.cpp:36:
+/home/rschiele/freecad/source/src/Gui/ViewProviderCoordinateSystem.h:77:10: note: candidate: ‘void Gui::ViewProviderCoordinateSystem::setTemporaryVisibility(Gui::DatumElements)’
+   77 |     void setTemporaryVisibility (DatumElements elements);
+      |          ^~~~~~~~~~~~~~~~~~~~~~
+/home/rschiele/freecad/source/src/Gui/ViewProviderCoordinateSystem.h:77:10: note:   candidate expects 1 argument, 2 provided
+make[2]: *** [src/Mod/PartDesign/Gui/CMakeFiles/PartDesignGui.dir/build.make:494: src/Mod/PartDesign/Gui/CMakeFiles/PartDesignGui.dir/SketchWorkflow.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:9367: src/Mod/PartDesign/Gui/CMakeFiles/PartDesignGui.dir/all] Error 2
+make: *** [Makefile:146: all] Error 2
+make: Leaving directory '/home/rschiele/freecad/build'
