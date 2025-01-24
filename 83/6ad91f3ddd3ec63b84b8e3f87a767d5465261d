@@ -2,3 +2,29 @@ BUILD: 0.21rc1-6312-g836ad91f3d
 system: 42910
 date: Fri Jan 24 04:16:36 PM CET 2025
 tasks: configure build[failed]
+FAILED:
+ 2191 |             set( PyUnicode_FromKindAndData( PyUnicode_4BYTE_KIND, const_cast<Py_UNICODE *>( v.data() ), v.length() ), true );
+      |                                                                                         ^
+/usr/include/python3.13/cpython/unicodeobject.h:10:37: note: declared here
+   10 | Py_DEPRECATED(3.13) typedef wchar_t Py_UNICODE;
+      |                                     ^~~~~~~~~~
+In file included from /home/rschiele/freecad/source/src/App/PropertyContainer.h:31,
+                 from /home/rschiele/freecad/source/src/App/ExtensionContainer.h:27,
+                 from /home/rschiele/freecad/source/src/App/TransactionalObject.h:27,
+                 from /home/rschiele/freecad/source/src/App/DocumentObject.h:28,
+                 from /home/rschiele/freecad/source/src/Gui/Selection.h:32,
+                 from /home/rschiele/freecad/source/src/Gui/SelectionObserverPython.h:27:
+/home/rschiele/freecad/source/src/App/DynamicProperty.h: At global scope:
+/home/rschiele/freecad/source/src/App/DynamicProperty.h:78:17: warning: ‘App::DynamicProperty’ declared with greater visibility than the type of its field ‘App::DynamicProperty::props’ [-Wattributes]
+   78 | class AppExport DynamicProperty
+      |                 ^~~~~~~~~~~~~~~
+[ 75%] Linking CXX shared library ../../lib/libFreeCADGui.so
+/usr/bin/ld: CMakeFiles/FreeCADGui.dir/GuiApplicationNativeEventAware.cpp.o: in function `Gui::GUIApplicationNativeEventAware::GUIApplicationNativeEventAware(int&, char**)':
+/home/rschiele/freecad/source/src/Gui/GuiApplicationNativeEventAware.cpp:53:(.text._ZN3Gui30GUIApplicationNativeEventAwareC2ERiPPc+0x37): undefined reference to `Gui::GuiNativeEvent::GuiNativeEvent(Gui::GUIApplicationNativeEventAware*)'
+/usr/bin/ld: CMakeFiles/FreeCADGui.dir/GuiApplicationNativeEventAware.cpp.o: in function `Gui::GUIApplicationNativeEventAware::initSpaceball(QMainWindow*)':
+/home/rschiele/freecad/source/src/Gui/GuiApplicationNativeEventAware.cpp:62:(.text._ZN3Gui30GUIApplicationNativeEventAware13initSpaceballEP11QMainWindow+0x9): undefined reference to `Gui::GuiNativeEvent::initSpaceball(QMainWindow*)'
+collect2: error: ld returned 1 exit status
+make[2]: *** [src/Gui/CMakeFiles/FreeCADGui.dir/build.make:6726: lib/libFreeCADGui.so] Error 1
+make[1]: *** [CMakeFiles/Makefile2:12793: src/Gui/CMakeFiles/FreeCADGui.dir/all] Error 2
+make: *** [Makefile:146: all] Error 2
+make: Leaving directory '/home/rschiele/freecad/build'
