@@ -28,3 +28,5 @@ make[2]: *** [src/Gui/CMakeFiles/FreeCADGui.dir/build.make:6726: lib/libFreeCADG
 make[1]: *** [CMakeFiles/Makefile2:12793: src/Gui/CMakeFiles/FreeCADGui.dir/all] Error 2
 make: *** [Makefile:146: all] Error 2
 make: Leaving directory '/home/rschiele/freecad/build'
+======================================================================
+BUILD: 0.21rc1-6312-g836ad91f3d
