@@ -1,4 +1,4 @@
 BUILD: 0.21rc1-6317-gb3f48177e4
 system: 42910
 date: Mon Jan 27 06:20:47 AM CET 2025
-tasks: configure build install[incomplete]
+tasks: configure build install
