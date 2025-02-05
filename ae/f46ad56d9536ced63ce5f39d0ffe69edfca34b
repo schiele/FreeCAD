@@ -1,4 +1,4 @@
 BUILD: 0.21rc1-6429-gaef46ad56d
 system: 42920
 date: Wed Feb  5 06:49:32 PM CET 2025
-tasks: configure build[incomplete]
+tasks: configure build install[incomplete]
