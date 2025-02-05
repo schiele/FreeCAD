@@ -1,4 +1,4 @@
 BUILD: 1.0.0-57-g630f7bcd29
 system: 42920
 date: Wed Feb  5 06:57:12 PM CET 2025
-tasks:[incomplete]
+tasks: configure[incomplete]
