@@ -1,4 +1,4 @@
 BUILD: 0.21rc1-6454-gc1dddaeadc
 system: 42950
 date: Fri Feb  7 06:42:12 PM CET 2025
-tasks:[incomplete]
+tasks: configure[incomplete]
