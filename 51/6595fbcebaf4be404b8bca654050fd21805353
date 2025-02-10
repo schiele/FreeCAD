@@ -1,4 +1,4 @@
 BUILD: 0.21rc1-6514-g516595fbce
 system: 42950
 date: Mon Feb 10 10:02:20 PM CET 2025
-tasks: configure build[incomplete]
+tasks: configure build install[incomplete]
