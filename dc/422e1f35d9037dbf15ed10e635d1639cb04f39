@@ -1,4 +1,4 @@
 BUILD: 0.21rc1-6464-gdc422e1f35
 system: 42950
 date: Mon Feb 10 03:24:36 PM CET 2025
-tasks: configure build install[incomplete]
+tasks: configure build install
