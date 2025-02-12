@@ -1,4 +1,4 @@
 BUILD: 0.21rc1-6567-gd044d3da84
 system: 42950
 date: Wed Feb 12 06:52:09 PM CET 2025
-tasks: configure build[incomplete]
+tasks: configure build install[incomplete]
