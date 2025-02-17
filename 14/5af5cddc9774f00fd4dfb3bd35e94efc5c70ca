@@ -2,3 +2,27 @@ BUILD: 0.21rc1-6635-g145af5cddc
 system: 43010
 date: Mon Feb 17 10:06:52 PM CET 2025
 tasks: configure[failed]
+FAILED:
+
+-- PySide 6.8.0.2 Python module found at /home/rschiele/.local/lib/python3.13/site-packages/PySide6.
+
+-- Found Matplotlib: /usr/lib/python3.13/site-packages/matplotlib (found version "3.8.4")
+CMake Error at cMake/FreeCAD_Helpers/SetupBoost.cmake:7 (find_package):
+  By not providing "FindBoost.cmake" in CMAKE_MODULE_PATH this project has
+  asked CMake to find a package configuration file provided by "Boost", but
+  CMake did not find one.
+
+  Could not find a package configuration file provided by "Boost" (requested
+  version 1.74) with any of the following names:
+
+    BoostConfig.cmake
+    boost-config.cmake
+
+  Add the installation prefix of "Boost" to CMAKE_PREFIX_PATH or set
+  "Boost_DIR" to a directory containing one of the above files.  If "Boost"
+  provides a separate development package or SDK, be sure it has been
+  installed.
+Call Stack (most recent call first):
+  CMakeLists.txt:100 (SetupBoost)
+
+-- Configuring incomplete, errors occurred!
