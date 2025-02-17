@@ -1,4 +1,4 @@
 BUILD: 1.0.0-89-g5c23509370
 system: 43010
 date: Mon Feb 17 09:16:42 PM CET 2025
-tasks: configure build[incomplete]
+tasks: configure build install[incomplete]
