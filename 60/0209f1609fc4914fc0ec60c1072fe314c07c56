@@ -1,4 +1,4 @@
 BUILD: 0.21rc1-6638-g600209f160
 system: 43010
 date: Tue Feb 18 10:24:05 AM CET 2025
-tasks: configure build[incomplete]
+tasks: configure build[failed]
