@@ -33,3 +33,29 @@ BUILD: 0.21rc1-6637-g5b3af188a9
 system: 43010
 date: Tue Feb 18 10:18:14 AM CET 2025
 tasks: configure build[failed]
+FAILED:
+                 from /home/rschiele/freecad/source/src/3rdParty/salomesmesh/src/SMDS/SMDS_VtkFace.cpp:22:
+/home/rschiele/freecad/source/src/3rdParty/salomesmesh/inc/SMDS_UnstructuredGrid.hxx: In member function ‘virtual vtkCellLinks* SMDS_UnstructuredGrid::GetLinks()’:
+/home/rschiele/freecad/source/src/3rdParty/salomesmesh/inc/SMDS_UnstructuredGrid.hxx:99:51: warning: ‘vtkAbstractCellLinks* vtkUnstructuredGrid::GetCellLinks()’ is deprecated: Use GetLinks() instead. [-Wdeprecated-declarations]
+   99 |     return static_cast<vtkCellLinks*>(GetCellLinks());
+      |                                       ~~~~~~~~~~~~^~
+In file included from /home/rschiele/freecad/source/src/3rdParty/salomesmesh/inc/SMDS_VtkFace.hxx:26,
+                 from /home/rschiele/freecad/source/src/3rdParty/salomesmesh/src/SMDS/SMDS_VtkFace.cpp:20:
+/usr/include/vtk-9.3/vtkUnstructuredGrid.h:290:25: note: declared here
+  290 |   vtkAbstractCellLinks* GetCellLinks();
+      |                         ^~~~~~~~~~~~
+In file included from /home/rschiele/freecad/source/src/3rdParty/salomesmesh/inc/SMDS_VtkVolume.hxx:26,
+                 from /home/rschiele/freecad/source/src/3rdParty/salomesmesh/src/SMDS/SMDS_VtkVolume.cpp:20:
+/home/rschiele/freecad/source/src/3rdParty/salomesmesh/inc/SMDS_UnstructuredGrid.hxx: In member function ‘virtual vtkCellLinks* SMDS_UnstructuredGrid::GetLinks()’:
+/home/rschiele/freecad/source/src/3rdParty/salomesmesh/inc/SMDS_UnstructuredGrid.hxx:99:51: warning: ‘vtkAbstractCellLinks* vtkUnstructuredGrid::GetCellLinks()’ is deprecated: Use GetLinks() instead. [-Wdeprecated-declarations]
+   99 |     return static_cast<vtkCellLinks*>(GetCellLinks());
+      |                                       ~~~~~~~~~~~~^~
+In file included from /home/rschiele/freecad/source/src/3rdParty/salomesmesh/inc/SMDS_UnstructuredGrid.hxx:29:
+/usr/include/vtk-9.3/vtkUnstructuredGrid.h:290:25: note: declared here
+  290 |   vtkAbstractCellLinks* GetCellLinks();
+      |                         ^~~~~~~~~~~~
+[ 43%] Linking CXX shared library ../../../lib/libSMDS.so
+[ 43%] Built target SMDS
+[ 43%] Built target OndselSolver
+make: *** [Makefile:146: all] Error 2
+make: Leaving directory '/home/rschiele/freecad/build'
