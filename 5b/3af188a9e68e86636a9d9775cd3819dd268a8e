@@ -28,3 +28,5 @@ FAILED:
 [ 43%] Built target OndselSolver
 make: *** [Makefile:146: all] Error 2
 make: Leaving directory '/home/rschiele/freecad/build'
+======================================================================
+BUILD: 0.21rc1-6637-g5b3af188a9
