@@ -1,4 +1,4 @@
 BUILD: 0.21rc1-6638-g66065bbce5
 system: 43010
 date: Tue Feb 18 01:02:56 PM CET 2025
-tasks: configure[incomplete]
+tasks: configure build[incomplete]
