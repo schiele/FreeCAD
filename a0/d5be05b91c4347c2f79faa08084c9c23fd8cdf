@@ -2,3 +2,29 @@ BUILD: 0.21rc1-6637-ga0d5be05b9
 system: 43010
 date: Tue Feb 18 08:48:43 AM CET 2025
 tasks: configure build[failed]
+FAILED:
+[ 42%] Building CXX object src/3rdParty/OndselSolver/OndselSolver/CMakeFiles/OndselSolver.dir/SymTime.cpp.o
+[ 42%] Building CXX object src/3rdParty/OndselSolver/OndselSolver/CMakeFiles/OndselSolver.dir/TooManyTriesError.cpp.o
+[ 42%] Building CXX object src/3rdParty/OndselSolver/OndselSolver/CMakeFiles/OndselSolver.dir/TooSmallStepSizeError.cpp.o
+[ 42%] Building CXX object src/3rdParty/OndselSolver/OndselSolver/CMakeFiles/OndselSolver.dir/Translation.cpp.o
+[ 42%] Building CXX object src/3rdParty/OndselSolver/OndselSolver/CMakeFiles/OndselSolver.dir/TranslationalJoint.cpp.o
+[ 42%] Building CXX object src/3rdParty/OndselSolver/OndselSolver/CMakeFiles/OndselSolver.dir/TranslationConstraintIJ.cpp.o
+[ 42%] Building CXX object src/3rdParty/OndselSolver/OndselSolver/CMakeFiles/OndselSolver.dir/TranslationConstraintIqcJc.cpp.o
+[ 42%] Building CXX object src/3rdParty/OndselSolver/OndselSolver/CMakeFiles/OndselSolver.dir/TranslationConstraintIqcJqc.cpp.o
+[ 42%] Building CXX object src/3rdParty/OndselSolver/OndselSolver/CMakeFiles/OndselSolver.dir/TranslationConstraintIqctJqc.cpp.o
+[ 42%] Building CXX object src/3rdParty/OndselSolver/OndselSolver/CMakeFiles/OndselSolver.dir/TranslationLimitIJ.cpp.o
+[ 42%] Building CXX object src/3rdParty/OndselSolver/OndselSolver/CMakeFiles/OndselSolver.dir/Units.cpp.o
+[ 42%] Building CXX object src/3rdParty/OndselSolver/OndselSolver/CMakeFiles/OndselSolver.dir/UniversalJoint.cpp.o
+[ 43%] Building CXX object src/3rdParty/OndselSolver/OndselSolver/CMakeFiles/OndselSolver.dir/UserFunction.cpp.o
+[ 43%] Building CXX object src/3rdParty/OndselSolver/OndselSolver/CMakeFiles/OndselSolver.dir/Variable.cpp.o
+[ 43%] Building CXX object src/3rdParty/OndselSolver/OndselSolver/CMakeFiles/OndselSolver.dir/VectorNewtonRaphson.cpp.o
+[ 43%] Building CXX object src/3rdParty/OndselSolver/OndselSolver/CMakeFiles/OndselSolver.dir/VelICKineSolver.cpp.o
+[ 43%] Building CXX object src/3rdParty/OndselSolver/OndselSolver/CMakeFiles/OndselSolver.dir/VelICSolver.cpp.o
+[ 43%] Building CXX object src/3rdParty/OndselSolver/OndselSolver/CMakeFiles/OndselSolver.dir/VelKineSolver.cpp.o
+[ 43%] Building CXX object src/3rdParty/OndselSolver/OndselSolver/CMakeFiles/OndselSolver.dir/VelSolver.cpp.o
+[ 43%] Building CXX object src/3rdParty/OndselSolver/OndselSolver/CMakeFiles/OndselSolver.dir/ZRotation.cpp.o
+[ 43%] Building CXX object src/3rdParty/OndselSolver/OndselSolver/CMakeFiles/OndselSolver.dir/ZTranslation.cpp.o
+[ 43%] Linking CXX shared library libOndselSolver.so
+[ 43%] Built target OndselSolver
+make: *** [Makefile:146: all] Error 2
+make: Leaving directory '/home/rschiele/freecad/build'
