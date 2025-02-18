@@ -30,4 +30,4 @@ Call Stack (most recent call first):
 BUILD: 0.21rc1-6635-g145af5cddc
 system: 43010
 date: Tue Feb 18 07:18:57 AM CET 2025
-tasks: configure build[incomplete]
+tasks: configure build install[incomplete]
