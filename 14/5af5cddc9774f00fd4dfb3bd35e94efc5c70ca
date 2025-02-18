@@ -26,3 +26,5 @@ Call Stack (most recent call first):
   CMakeLists.txt:100 (SetupBoost)
 
 -- Configuring incomplete, errors occurred!
+======================================================================
+BUILD: 0.21rc1-6635-g145af5cddc
