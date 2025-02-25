@@ -33,3 +33,29 @@ BUILD: 0.21rc1-6665-g16ac5f0a50
 system: 43030
 date: Tue Feb 25 09:53:46 PM CET 2025
 tasks: configure build[failed]
+FAILED:
+      |                                  ^~~~~~~~
+[ 91%] Linking CXX shared library ../../../../Mod/Part/PartGui.so
+[ 91%] Built target TechDrawGui
+/usr/bin/ld: CMakeFiles/PartGui.dir/SoBrepFaceSet.cpp.o: in function `PartGui::SoBrepFaceSet::VBO::context_destruction_cb(unsigned int, void*)':
+/home/rschiele/freecad/source/src/Mod/Part/Gui/SoBrepFaceSet.cpp:144:(.text._ZN7PartGui13SoBrepFaceSet3VBO22context_destruction_cbEjPv[_ZN7PartGui13SoBrepFaceSet3VBO22context_destruction_cbEjPv]+0x62): undefined reference to `glDeleteBuffersARB'
+/usr/bin/ld: CMakeFiles/PartGui.dir/SoBrepFaceSet.cpp.o: in function `PartGui::SoBrepFaceSet::VBO::render(SoGLRenderAction*, SoGLCoordinateElement const*, int const*, int, int const*, int, SbVec3f const*, int const*, SoMaterialBundle*, int const*, SoTextureCoordinateBundle*, int const*, int, int, int)':
+/home/rschiele/freecad/source/src/Mod/Part/Gui/SoBrepFaceSet.cpp:1445:(.text._ZN7PartGui13SoBrepFaceSet3VBO6renderEP16SoGLRenderActionPK21SoGLCoordinateElementPKiiS8_iPK7SbVec3fS8_P16SoMaterialBundleS8_P25SoTextureCoordinateBundleS8_iii+0x251): undefined reference to `glDeleteBuffersARB'
+/usr/bin/ld: /home/rschiele/freecad/source/src/Mod/Part/Gui/SoBrepFaceSet.cpp:1446:(.text._ZN7PartGui13SoBrepFaceSet3VBO6renderEP16SoGLRenderActionPK21SoGLCoordinateElementPKiiS8_iPK7SbVec3fS8_P16SoMaterialBundleS8_P25SoTextureCoordinateBundleS8_iii+0x25e): undefined reference to `glGenBuffersARB'
+/usr/bin/ld: /home/rschiele/freecad/source/src/Mod/Part/Gui/SoBrepFaceSet.cpp:1644:(.text._ZN7PartGui13SoBrepFaceSet3VBO6renderEP16SoGLRenderActionPK21SoGLCoordinateElementPKiiS8_iPK7SbVec3fS8_P16SoMaterialBundleS8_P25SoTextureCoordinateBundleS8_iii+0x31e): undefined reference to `glBindBufferARB'
+/usr/bin/ld: /home/rschiele/freecad/source/src/Mod/Part/Gui/SoBrepFaceSet.cpp:1645:(.text._ZN7PartGui13SoBrepFaceSet3VBO6renderEP16SoGLRenderActionPK21SoGLCoordinateElementPKiiS8_iPK7SbVec3fS8_P16SoMaterialBundleS8_P25SoTextureCoordinateBundleS8_iii+0x33a): undefined reference to `glBufferDataARB'
+/usr/bin/ld: /home/rschiele/freecad/source/src/Mod/Part/Gui/SoBrepFaceSet.cpp:1647:(.text._ZN7PartGui13SoBrepFaceSet3VBO6renderEP16SoGLRenderActionPK21SoGLCoordinateElementPKiiS8_iPK7SbVec3fS8_P16SoMaterialBundleS8_P25SoTextureCoordinateBundleS8_iii+0x34c): undefined reference to `glBindBufferARB'
+/usr/bin/ld: /home/rschiele/freecad/source/src/Mod/Part/Gui/SoBrepFaceSet.cpp:1648:(.text._ZN7PartGui13SoBrepFaceSet3VBO6renderEP16SoGLRenderActionPK21SoGLCoordinateElementPKiiS8_iPK7SbVec3fS8_P16SoMaterialBundleS8_P25SoTextureCoordinateBundleS8_iii+0x36f): undefined reference to `glBufferDataARB'
+/usr/bin/ld: /home/rschiele/freecad/source/src/Mod/Part/Gui/SoBrepFaceSet.cpp:1650:(.text._ZN7PartGui13SoBrepFaceSet3VBO6renderEP16SoGLRenderActionPK21SoGLCoordinateElementPKiiS8_iPK7SbVec3fS8_P16SoMaterialBundleS8_P25SoTextureCoordinateBundleS8_iii+0x37b): undefined reference to `glBindBufferARB'
+/usr/bin/ld: /home/rschiele/freecad/source/src/Mod/Part/Gui/SoBrepFaceSet.cpp:1651:(.text._ZN7PartGui13SoBrepFaceSet3VBO6renderEP16SoGLRenderActionPK21SoGLCoordinateElementPKiiS8_iPK7SbVec3fS8_P16SoMaterialBundleS8_P25SoTextureCoordinateBundleS8_iii+0x387): undefined reference to `glBindBufferARB'
+/usr/bin/ld: /home/rschiele/freecad/source/src/Mod/Part/Gui/SoBrepFaceSet.cpp:1666:(.text._ZN7PartGui13SoBrepFaceSet3VBO6renderEP16SoGLRenderActionPK21SoGLCoordinateElementPKiiS8_iPK7SbVec3fS8_P16SoMaterialBundleS8_P25SoTextureCoordinateBundleS8_iii+0x3c6): undefined reference to `glBindBufferARB'
+/usr/bin/ld: /home/rschiele/freecad/source/src/Mod/Part/Gui/SoBrepFaceSet.cpp:1667:(.text._ZN7PartGui13SoBrepFaceSet3VBO6renderEP16SoGLRenderActionPK21SoGLCoordinateElementPKiiS8_iPK7SbVec3fS8_P16SoMaterialBundleS8_P25SoTextureCoordinateBundleS8_iii+0x3d8): undefined reference to `glBindBufferARB'
+/usr/bin/ld: /home/rschiele/freecad/source/src/Mod/Part/Gui/SoBrepFaceSet.cpp:1683:(.text._ZN7PartGui13SoBrepFaceSet3VBO6renderEP16SoGLRenderActionPK21SoGLCoordinateElementPKiiS8_iPK7SbVec3fS8_P16SoMaterialBundleS8_P25SoTextureCoordinateBundleS8_iii+0x482): undefined reference to `glBindBufferARB'
+/usr/bin/ld: CMakeFiles/PartGui.dir/SoBrepFaceSet.cpp.o:/home/rschiele/freecad/source/src/Mod/Part/Gui/SoBrepFaceSet.cpp:1684: more undefined references to `glBindBufferARB' follow
+/usr/bin/ld: CMakeFiles/PartGui.dir/SoBrepFaceSet.cpp.o: in function `PartGui::SoBrepFaceSet::VBO::render(SoGLRenderAction*, SoGLCoordinateElement const*, int const*, int, int const*, int, SbVec3f const*, int const*, SoMaterialBundle*, int const*, SoTextureCoordinateBundle*, int const*, int, int, int)':
+/home/rschiele/freecad/source/src/Mod/Part/Gui/SoBrepFaceSet.cpp:1415:(.text._ZN7PartGui13SoBrepFaceSet3VBO6renderEP16SoGLRenderActionPK21SoGLCoordinateElementPKiiS8_iPK7SbVec3fS8_P16SoMaterialBundleS8_P25SoTextureCoordinateBundleS8_iii+0x4d4): undefined reference to `glGenBuffersARB'
+collect2: error: ld returned 1 exit status
+make[2]: *** [src/Mod/Part/Gui/CMakeFiles/PartGui.dir/build.make:1735: Mod/Part/PartGui.so] Error 1
+make[1]: *** [CMakeFiles/Makefile2:9059: src/Mod/Part/Gui/CMakeFiles/PartGui.dir/all] Error 2
+make: *** [Makefile:146: all] Error 2
+make: Leaving directory '/home/rschiele/freecad/build'
