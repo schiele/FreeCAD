@@ -1,4 +1,4 @@
 BUILD: 1.0.0-95-g6ea40c3e63
 system: 43030
 date: Tue Feb 25 11:01:18 PM CET 2025
-tasks:[incomplete]
+tasks: configure[incomplete]
