@@ -2,3 +2,29 @@ BUILD: 0.21rc1-6751-gcf477695f9
 system: 43030
 date: Tue Feb 25 08:47:36 PM CET 2025
 tasks: configure build[failed]
+FAILED:
+                 from /home/rschiele/freecad/source/src/Mod/TechDraw/Gui/ViewProviderCosmeticExtension.cpp:33:
+/home/rschiele/freecad/source/src/App/DynamicProperty.h:79:17: warning: ‘App::DynamicProperty’ declared with greater visibility than the type of its field ‘App::DynamicProperty::props’ [-Wattributes]
+   79 | class AppExport DynamicProperty
+      |                 ^~~~~~~~~~~~~~~
+In file included from /home/rschiele/freecad/source/src/App/PropertyContainer.h:33,
+                 from /home/rschiele/freecad/source/src/App/ExtensionContainer.h:31,
+                 from /home/rschiele/freecad/source/src/App/TransactionalObject.h:27,
+                 from /home/rschiele/freecad/source/src/App/DocumentObject.h:28,
+                 from /home/rschiele/freecad/source/src/Mod/TechDraw/Gui/ViewProviderWeld.cpp:32:
+/home/rschiele/freecad/source/src/App/DynamicProperty.h:79:17: warning: ‘App::DynamicProperty’ declared with greater visibility than the type of its field ‘App::DynamicProperty::props’ [-Wattributes]
+   79 | class AppExport DynamicProperty
+      |                 ^~~~~~~~~~~~~~~
+In file included from /home/rschiele/freecad/source/src/App/PropertyContainer.h:33,
+                 from /home/rschiele/freecad/source/src/App/ExtensionContainer.h:31,
+                 from /home/rschiele/freecad/source/src/App/TransactionalObject.h:27,
+                 from /home/rschiele/freecad/source/src/App/DocumentObject.h:28,
+                 from /home/rschiele/freecad/source/src/Mod/TechDraw/App/DrawPage.h:28,
+                 from /home/rschiele/freecad/source/src/Mod/TechDraw/Gui/QGVNavStyle.cpp:32:
+/home/rschiele/freecad/source/src/App/DynamicProperty.h:79:17: warning: ‘App::DynamicProperty’ declared with greater visibility than the type of its field ‘App::DynamicProperty::props’ [-Wattributes]
+   79 | class AppExport DynamicProperty
+      |                 ^~~~~~~~~~~~~~~
+[ 91%] Linking CXX shared library ../../../../Mod/TechDraw/TechDrawGui.so
+[ 91%] Built target TechDrawGui
+make: *** [Makefile:146: all] Error 2
+make: Leaving directory '/home/rschiele/freecad/build'
