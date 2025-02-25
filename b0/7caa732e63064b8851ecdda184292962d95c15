@@ -2,3 +2,29 @@ BUILD: 0.21rc1-6740-gb07caa732e
 system: 43030
 date: Tue Feb 25 02:42:04 PM CET 2025
 tasks: configure build[failed]
+FAILED:
+/home/rschiele/freecad/source/src/3rdParty/PyCXX/CXX/Python3/Objects.hxx: In member function ‘Py::Char& Py::Char::operator=(int)’:
+/home/rschiele/freecad/source/src/3rdParty/PyCXX/CXX/Python3/Objects.hxx:2022:30: warning: ‘Py_UNICODE’ is deprecated [-Wdeprecated-declarations]
+ 2022 |             Py_UNICODE v( v_ );
+      |                              ^
+/usr/include/python3.13/cpython/unicodeobject.h:10:37: note: declared here
+   10 | Py_DEPRECATED(3.13) typedef wchar_t Py_UNICODE;
+      |                                     ^~~~~~~~~~
+/home/rschiele/freecad/source/src/3rdParty/PyCXX/CXX/Python3/Objects.hxx: At global scope:
+/home/rschiele/freecad/source/src/3rdParty/PyCXX/CXX/Python3/Objects.hxx:2168:49: warning: ‘Py_UNICODE’ is deprecated [-Wdeprecated-declarations]
+ 2168 |         String( const Py_UNICODE *s, int length )
+      |                                                 ^
+/usr/include/python3.13/cpython/unicodeobject.h:10:37: note: declared here
+   10 | Py_DEPRECATED(3.13) typedef wchar_t Py_UNICODE;
+      |                                     ^~~~~~~~~~
+/home/rschiele/freecad/source/src/3rdParty/PyCXX/CXX/Python3/Objects.hxx: In member function ‘Py::String& Py::String::operator=(const Py::unicodestring&)’:
+/home/rschiele/freecad/source/src/3rdParty/PyCXX/CXX/Python3/Objects.hxx:2191:89: warning: ‘Py_UNICODE’ is deprecated [-Wdeprecated-declarations]
+ 2191 |             set( PyUnicode_FromKindAndData( PyUnicode_4BYTE_KIND, const_cast<Py_UNICODE *>( v.data() ), v.length() ), true );
+      |                                                                                         ^
+/usr/include/python3.13/cpython/unicodeobject.h:10:37: note: declared here
+   10 | Py_DEPRECATED(3.13) typedef wchar_t Py_UNICODE;
+      |                                     ^~~~~~~~~~
+[ 91%] Linking CXX shared library ../../../../Mod/TechDraw/TechDrawGui.so
+[ 91%] Built target TechDrawGui
+make: *** [Makefile:146: all] Error 2
+make: Leaving directory '/home/rschiele/freecad/build'
