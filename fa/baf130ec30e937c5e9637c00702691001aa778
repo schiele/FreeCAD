@@ -1,4 +1,4 @@
 BUILD: 1.0.0-114-gfabaf130ec
 system: 43030
 date: Tue Feb 25 11:42:11 PM CET 2025
-tasks: configure[incomplete]
+tasks: configure build[incomplete]
