@@ -1,4 +1,4 @@
 BUILD: 1.0.0-117-gb68dfbaf6d
 system: 43030
 date: Tue Feb 25 10:33:39 PM CET 2025
-tasks: configure build[incomplete]
+tasks: configure build[failed]
