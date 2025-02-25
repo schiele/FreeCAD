@@ -28,3 +28,5 @@ FAILED:
 [ 15%] Built target FemScriptsTarget
 make: *** [Makefile:146: all] Error 2
 make: Leaving directory '/home/rschiele/freecad/build'
+======================================================================
+BUILD: 1.0.0-118-g11afa9d595
