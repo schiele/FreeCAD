@@ -32,4 +32,4 @@ make: Leaving directory '/home/rschiele/freecad/build'
 BUILD: 0.21rc1-6665-g16ac5f0a50
 system: 43030
 date: Tue Feb 25 09:53:46 PM CET 2025
-tasks:[incomplete]
+tasks: configure[incomplete]
