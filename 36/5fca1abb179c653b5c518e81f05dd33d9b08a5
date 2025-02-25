@@ -1,4 +1,4 @@
 BUILD: 1.0.0-111-g365fca1abb
 system: 43030
 date: Tue Feb 25 11:36:01 PM CET 2025
-tasks: configure build[incomplete]
+tasks: configure build install[incomplete]
