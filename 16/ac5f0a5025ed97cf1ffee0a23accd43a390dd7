@@ -28,3 +28,5 @@ FAILED:
 [ 91%] Built target TechDrawGui
 make: *** [Makefile:146: all] Error 2
 make: Leaving directory '/home/rschiele/freecad/build'
+======================================================================
+BUILD: 0.21rc1-6665-g16ac5f0a50
