@@ -2,3 +2,29 @@ BUILD: 1.0.0-117-gb68dfbaf6d
 system: 43030
 date: Tue Feb 25 10:33:39 PM CET 2025
 tasks: configure build[failed]
+FAILED:
+                 from /home/rschiele/freecad/source/tests/src/Mod/Part/App/PartTestHelpers.h:6,
+                 from /home/rschiele/freecad/source/tests/src/Mod/Part/App/TopoShapeExpansion.cpp:9:
+/home/rschiele/freecad/source/src/App/DynamicProperty.h:67:17: warning: ‘App::DynamicProperty’ declared with greater visibility than the type of its field ‘App::DynamicProperty::props’ [-Wattributes]
+   67 | class AppExport DynamicProperty
+      |                 ^~~~~~~~~~~~~~~
+In file included from /usr/include/opencascade/TopTools_Array2OfShape.hxx:21,
+                 from /usr/include/opencascade/TopTools_HArray2OfShape.hxx:21,
+                 from /usr/include/opencascade/BRepFill_PipeShell.hxx:30,
+                 from /usr/include/opencascade/BRepOffsetAPI_MakePipeShell.hxx:26,
+                 from /home/rschiele/freecad/source/src/Mod/Part/App/TopoShape.h:40:
+In member function ‘void NCollection_Array2<TheItemType>::SetValue(Standard_Integer, Standard_Integer, const TheItemType&) [with TheItemType = gp_Pnt]’,
+    inlined from ‘virtual void TopoShapeExpansionTest_linearizeFace_Test::TestBody()’ at /home/rschiele/freecad/source/tests/src/Mod/Part/App/TopoShapeExpansion.cpp:1646:21:
+/usr/include/opencascade/NCollection_Array2.hxx:302:11: warning: array subscript 2 is outside array bounds of ‘gp_Pnt* [2]’ [-Warray-bounds=]
+  302 |     myData[theRow][theCol] = theItem;
+      |     ~~~~~~^
+In member function ‘void NCollection_Array2<TheItemType>::Allocate() [with TheItemType = gp_Pnt]’,
+    inlined from ‘NCollection_Array2<TheItemType>::NCollection_Array2(Standard_Integer, Standard_Integer, Standard_Integer, Standard_Integer) [with TheItemType = gp_Pnt]’ at /usr/include/opencascade/NCollection_Array2.hxx:115:13,
+    inlined from ‘virtual void TopoShapeExpansionTest_linearizeFace_Test::TestBody()’ at /home/rschiele/freecad/source/tests/src/Mod/Part/App/TopoShapeExpansion.cpp:1644:43:
+/usr/include/opencascade/NCollection_Array2.hxx:403:28: note: at offset 16 into object of size 16 allocated by ‘operator new []’
+  403 |     TheItemType** pTable = new TheItemType* [aNbRows];
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~
+[ 71%] Linking CXX executable Part_tests_run
+[ 71%] Built target Part_tests_run
+make: *** [Makefile:146: all] Error 2
+make: Leaving directory '/home/rschiele/freecad/build'
