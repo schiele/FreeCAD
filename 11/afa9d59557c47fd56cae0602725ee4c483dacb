@@ -2,3 +2,29 @@ BUILD: 1.0.0-118-g11afa9d595
 system: 43030
 date: Tue Feb 25 11:55:11 PM CET 2025
 tasks: configure build[failed]
+FAILED:
+[ 15%] Copying /home/rschiele/freecad/source/src/Mod/Fem/femtest/data/z88/ccx_cantilever_faceload/z88int.txt to /home/rschiele/freecad/build/Mod/Fem/femtest/data/z88/ccx_cantilever_faceload/z88int.txt
+[ 15%] Copying /home/rschiele/freecad/source/src/Mod/Fem/femtest/data/z88/ccx_cantilever_nodeload/z88.dyn to /home/rschiele/freecad/build/Mod/Fem/femtest/data/z88/ccx_cantilever_nodeload/z88.dyn
+[ 15%] Copying /home/rschiele/freecad/source/src/Mod/Fem/femtest/data/z88/ccx_cantilever_nodeload/51.txt to /home/rschiele/freecad/build/Mod/Fem/femtest/data/z88/ccx_cantilever_nodeload/51.txt
+[ 15%] Copying /home/rschiele/freecad/source/src/Mod/Fem/femtest/data/z88/ccx_cantilever_nodeload/z88i1.txt to /home/rschiele/freecad/build/Mod/Fem/femtest/data/z88/ccx_cantilever_nodeload/z88i1.txt
+[ 15%] Copying /home/rschiele/freecad/source/src/Mod/Fem/femtest/data/z88/ccx_cantilever_nodeload/z88elp.txt to /home/rschiele/freecad/build/Mod/Fem/femtest/data/z88/ccx_cantilever_nodeload/z88elp.txt
+[ 15%] Copying /home/rschiele/freecad/source/src/Mod/Fem/femtest/data/z88/ccx_cantilever_nodeload/z88int.txt to /home/rschiele/freecad/build/Mod/Fem/femtest/data/z88/ccx_cantilever_nodeload/z88int.txt
+[ 15%] Copying /home/rschiele/freecad/source/src/Mod/Fem/femtest/data/z88/ccx_cantilever_nodeload/z88man.txt to /home/rschiele/freecad/build/Mod/Fem/femtest/data/z88/ccx_cantilever_nodeload/z88man.txt
+[ 15%] Copying /home/rschiele/freecad/source/src/Mod/Fem/femtest/data/z88/ccx_cantilever_nodeload/z88i2.txt to /home/rschiele/freecad/build/Mod/Fem/femtest/data/z88/ccx_cantilever_nodeload/z88i2.txt
+[ 15%] Copying /home/rschiele/freecad/source/src/Mod/Fem/femtest/data/z88/ccx_cantilever_nodeload/z88i5.txt to /home/rschiele/freecad/build/Mod/Fem/femtest/data/z88/ccx_cantilever_nodeload/z88i5.txt
+[ 15%] Copying /home/rschiele/freecad/source/src/Mod/Fem/femtest/data/z88/ccx_cantilever_nodeload/z88mat.txt to /home/rschiele/freecad/build/Mod/Fem/femtest/data/z88/ccx_cantilever_nodeload/z88mat.txt
+[ 15%] Copying /home/rschiele/freecad/source/src/Mod/Fem/femtest/test_information.md to /home/rschiele/freecad/build/Mod/Fem/femtest/test_information.md
+[ 15%] Copying /home/rschiele/freecad/source/src/Mod/Fem/femtest/test_commands.sh to /home/rschiele/freecad/build/Mod/Fem/femtest/test_commands.sh
+[ 15%] Copying /home/rschiele/freecad/source/src/Mod/Fem/femtools/__init__.py to /home/rschiele/freecad/build/Mod/Fem/femtools/__init__.py
+[ 15%] Copying /home/rschiele/freecad/source/src/Mod/Fem/femtools/constants.py to /home/rschiele/freecad/build/Mod/Fem/femtools/constants.py
+[ 15%] Copying /home/rschiele/freecad/source/src/Mod/Fem/femtools/checksanalysis.py to /home/rschiele/freecad/build/Mod/Fem/femtools/checksanalysis.py
+[ 15%] Copying /home/rschiele/freecad/source/src/Mod/Fem/femtools/ccxtools.py to /home/rschiele/freecad/build/Mod/Fem/femtools/ccxtools.py
+[ 15%] Copying /home/rschiele/freecad/source/src/Mod/Fem/femtools/errors.py to /home/rschiele/freecad/build/Mod/Fem/femtools/errors.py
+[ 15%] Copying /home/rschiele/freecad/source/src/Mod/Fem/femtools/femutils.py to /home/rschiele/freecad/build/Mod/Fem/femtools/femutils.py
+[ 15%] Copying /home/rschiele/freecad/source/src/Mod/Fem/femtools/membertools.py to /home/rschiele/freecad/build/Mod/Fem/femtools/membertools.py
+[ 15%] Copying /home/rschiele/freecad/source/src/Mod/Fem/femtools/geomtools.py to /home/rschiele/freecad/build/Mod/Fem/femtools/geomtools.py
+[ 15%] Copying /home/rschiele/freecad/source/src/Mod/Fem/femtools/migrate_app.py to /home/rschiele/freecad/build/Mod/Fem/femtools/migrate_app.py
+[ 15%] Copying /home/rschiele/freecad/source/src/Mod/Fem/femtools/tokrules.py to /home/rschiele/freecad/build/Mod/Fem/femtools/tokrules.py
+[ 15%] Built target FemScriptsTarget
+make: *** [Makefile:146: all] Error 2
+make: Leaving directory '/home/rschiele/freecad/build'
