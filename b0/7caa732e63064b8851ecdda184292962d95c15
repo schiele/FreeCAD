@@ -1,4 +1,4 @@
 BUILD: 0.21rc1-6740-gb07caa732e
 system: 43030
 date: Tue Feb 25 02:42:04 PM CET 2025
-tasks: configure[incomplete]
+tasks: configure build[incomplete]
