@@ -1,4 +1,4 @@
 BUILD: 1.0.0-119-gf1e86b9304
 system: 43060
 date: Thu Feb 27 08:24:09 PM CET 2025
-tasks: configure build[incomplete]
+tasks: configure build install[incomplete]
