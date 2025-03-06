@@ -1,4 +1,4 @@
 BUILD: 0.21rc1-6911-ge12dd64d06
 system: 43080
 date: Thu Mar  6 09:06:54 PM CET 2025
-tasks: configure build[incomplete]
+tasks: configure build install[incomplete]
