@@ -1,4 +1,4 @@
 BUILD: 0.21rc1-7043-g2ad23cec23
 system: 43110
 date: Wed Mar 12 07:41:45 PM CET 2025
-tasks: configure build[incomplete]
+tasks: configure build install[incomplete]
