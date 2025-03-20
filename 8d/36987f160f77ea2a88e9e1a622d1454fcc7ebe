@@ -1,4 +1,4 @@
 BUILD: 0.21rc1-7187-g8d36987f16
 system: 43130
 date: Thu Mar 20 05:15:18 AM CET 2025
-tasks: configure build[incomplete]
+tasks: configure build install[incomplete]
