@@ -27,3 +27,5 @@ Call Stack (most recent call first):
   CMakeLists.txt:82 (SetupPCL)
 
 -- Configuring incomplete, errors occurred!
+======================================================================
+BUILD: 0.21rc1-7347-g83c1c76b04
