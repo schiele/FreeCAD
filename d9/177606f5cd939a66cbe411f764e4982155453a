@@ -1,4 +1,4 @@
 BUILD: 1.0.0-164-gd9177606f5
 system: 43150
 date: Wed Mar 26 08:16:29 PM CET 2025
-tasks: configure build install[incomplete]
+tasks: configure build install
