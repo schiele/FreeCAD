@@ -2,3 +2,28 @@ BUILD: 0.21rc1-7347-g83c1c76b04
 system: 43150
 date: Wed Mar 26 08:09:02 PM CET 2025
 tasks: configure[failed]
+FAILED:
+-- libdir: lib64
+-- cmake: 3.31.6
+-- Compiling with Qt 6
+-- Found Doxygen: /usr/bin/doxygen (found version "1.9.8") found components: doxygen dot
+-- find_package() was used to locate fmt version 11.1.1
+-- Found Python3: /usr/bin/python3.13 (found version "3.13.2") found components: Interpreter Development Development.Module Development.Embed
+CMake Error at cMake/FreeCAD_Helpers/SetupPCL.cmake:11 (find_package):
+  By not providing "FindPCL.cmake" in CMAKE_MODULE_PATH this project has
+  asked CMake to find a package configuration file provided by "PCL", but
+  CMake did not find one.
+
+  Could not find a package configuration file provided by "PCL" with any of
+  the following names:
+
+    PCLConfig.cmake
+    pcl-config.cmake
+
+  Add the installation prefix of "PCL" to CMAKE_PREFIX_PATH or set "PCL_DIR"
+  to a directory containing one of the above files.  If "PCL" provides a
+  separate development package or SDK, be sure it has been installed.
+Call Stack (most recent call first):
+  CMakeLists.txt:82 (SetupPCL)
+
+-- Configuring incomplete, errors occurred!
